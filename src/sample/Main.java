@@ -19,5 +19,8 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+        Outsourced test = new Outsourced(1,"Test", 22.00,4,1,1);
+        test.setCompanyName("Nate");
+        System.out.println(test.getCompanyName());
     }
 }
