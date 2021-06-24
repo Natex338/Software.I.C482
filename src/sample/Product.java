@@ -1,17 +1,22 @@
 package sample;
 
+import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.ArrayList;
 
 public class Product {
-    ArrayList<Part> associatedParts = new ArrayList<>();
-    int id;
-    String name;
-    double price;
-    int stock;
-    int min;
-    int max;
 
-   public Product(int id, String name, double price, int stock, int min, int max){
+    private  ArrayList<Part> associatedParts = new ArrayList<>();
+    private int id;
+    private String name;
+    private double price;
+    private int stock;
+    private int min;
+    private int max;
+
+
+    public Product(int id, String name, double price, int stock, int min, int max){
 
        this.id = id;
        this.name = name;
@@ -68,5 +73,19 @@ public class Product {
 
     public void setMax(int max) {
         this.max = max;
+    }
+
+    public void addAssociatedPart(Part p){
+       associatedParts.add(p);
+    }
+    public boolean deleteAssociatedPart(Part p){
+        if (associatedParts.equals(p)){
+            associatedParts.remove(p);
+            return true;
+        }
+        return false;
+    }
+    public ArrayList<Part> getAllAssociatedParts(){
+        return associatedParts;
     }
 }
