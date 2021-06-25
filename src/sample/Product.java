@@ -1,13 +1,13 @@
 package sample;
 
-import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
-import org.w3c.dom.ls.LSOutput;
+import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
+
+
 
 public class Product {
 
-    private  ArrayList<Part> associatedParts = new ArrayList<>();
+    private  ObservableList<Part> associatedParts;
     private int id;
     private String name;
     private double price;
@@ -78,14 +78,14 @@ public class Product {
     public void addAssociatedPart(Part p){
        associatedParts.add(p);
     }
+
     public boolean deleteAssociatedPart(Part p){
-        if (associatedParts.equals(p)){
-            associatedParts.remove(p);
+        associatedParts.remove(associatedParts);
             return true;
-        }
-        return false;
     }
-    public ArrayList<Part> getAllAssociatedParts(){
+
+    public ObservableList<Part> getAllAssociatedParts(){
+
         return associatedParts;
     }
 }
