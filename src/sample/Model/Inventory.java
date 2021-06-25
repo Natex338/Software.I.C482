@@ -14,12 +14,9 @@ public class Inventory {
   }
 
   public static void addProduct(Product product){
-    System.out.println("Before");
     if(product !=null){
-      System.out.println("Im here");
       allProducts.add(product);
     }
-    else System.out.println("I didnt make it");
   }
   public static Product lookupProduct(int productId){
    for(Product p : allProducts)
