@@ -11,12 +11,12 @@ public class Outsourced extends Part {
     /**
      * Constructors
      *
-     * @param id
-     * @param name
-     * @param price
-     * @param stock
-     * @param min
-     * @param max
+     * @param id Part ID
+     * @param name name of the part
+     * @param price price of part
+     * @param stock how many in stock
+     * @param min min int
+     * @param max max int
      */
 
     public Outsourced(int id,String name,Double price,int stock, int min, int max, String companyName) {
@@ -31,7 +31,7 @@ public class Outsourced extends Part {
 
     /**
      * Getters and Setters
-     * @param companyName
+     * @param companyName set and retrieve private company name
      */
 
     public void setCompanyName(String companyName) {
