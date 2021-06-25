@@ -1,8 +1,6 @@
-package sample;
+package sample.Model;
 
 import javafx.collections.ObservableList;
-
-
 
 
 public class Product {

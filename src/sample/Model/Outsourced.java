@@ -1,6 +1,7 @@
 
-package sample;
-public class Outsourced extends Part  {
+package sample.Model;
+
+public class Outsourced extends Part {
     /**
      * Private variables
      */

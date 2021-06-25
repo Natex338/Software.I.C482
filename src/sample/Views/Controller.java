@@ -1,4 +1,4 @@
-package sample;
+package sample.Views;
 
 public class Controller {
 }

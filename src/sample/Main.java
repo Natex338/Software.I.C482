@@ -5,6 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import sample.Model.InHouse;
+import sample.Model.Inventory;
+import sample.Model.Outsourced;
+import sample.Model.Product;
 
 public class Main extends Application {
 
