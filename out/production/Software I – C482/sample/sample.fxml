@@ -10,15 +10,15 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="723.0" fx:controller="sample.Views.Controller" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="791.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Views.Controller">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints maxHeight="267.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="511.0" minHeight="0.0" prefHeight="470.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="267.0" minHeight="0.0" prefHeight="51.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="511.0" minHeight="0.0" prefHeight="252.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <StackPane prefHeight="150.0" prefWidth="200.0">
@@ -26,7 +26,7 @@
             <Label text="Parts" />
          </children>
       </StackPane>
-      <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1">
+      <StackPane prefHeight="31.0" prefWidth="335.0" GridPane.columnIndex="1">
          <children>
             <Label text="Product" />
          </children>
@@ -35,10 +35,10 @@
          <children>
             <TableView fx:id="allParts" prefHeight="200.0" prefWidth="200.0">
               <columns>
-                <TableColumn fx:id="partNumberCol" prefWidth="150.0" text="Part Number" />
-                <TableColumn prefWidth="75.0" text="C2" />
-                  <TableColumn prefWidth="75.0" text="C2" />
-                  <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="partNumberCol" prefWidth="46.0" text="Part ID" />
+                <TableColumn prefWidth="96.0" text="Part Name" />
+                  <TableColumn prefWidth="112.0" text="Inventory Level" />
+                  <TableColumn prefWidth="136.0" text="Price/Cost per Unit" />
               </columns>
             </TableView>
          </children>
@@ -47,17 +47,17 @@
          <children>
             <TableView fx:id="allProducts" prefHeight="470.0" prefWidth="344.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
-                  <TableColumn prefWidth="75.0" text="C1" />
-                  <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn prefWidth="70.0" text="Product ID" />
+                <TableColumn prefWidth="97.0" text="Product Name" />
+                  <TableColumn prefWidth="104.0" text="Inventory Level" />
+                  <TableColumn prefWidth="118.0" text="Price/Cost per Unit" />
               </columns>
             </TableView>
          </children>
       </StackPane>
       <StackPane prefHeight="77.0" prefWidth="362.0" GridPane.rowIndex="2">
          <children>
-            <Button fx:id="addPart" mnemonicParsing="false"  text="Button--&gt;" />
+            <Button fx:id="addPart" mnemonicParsing="false" text="Button--&gt;" />
          </children>
       </StackPane>
       <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
