@@ -9,8 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import sample.Model.InHouse;
-import sample.Model.Inventory;
+
 import sample.Model.Part;
 import sample.Model.Product;
 
@@ -18,7 +17,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import static sample.Model.Inventory.*;
-import static sample.Model.Inventory.getAllParts;
+
 
 
 public class Controller implements Initializable {

@@ -7,18 +7,19 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="791.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Views.Controller">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="251.0" prefWidth="795.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Views.Controller">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints maxHeight="267.0" minHeight="0.0" prefHeight="51.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="511.0" minHeight="0.0" prefHeight="252.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="511.0" minHeight="0.0" prefHeight="193.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <StackPane prefHeight="150.0" prefWidth="200.0">
@@ -57,12 +58,45 @@
       </StackPane>
       <StackPane prefHeight="77.0" prefWidth="362.0" GridPane.rowIndex="2">
          <children>
-            <Button fx:id="removePart" mnemonicParsing="false" onAction="#onRemovePart" text="Button--&gt;" />
+            <HBox prefHeight="25.0" prefWidth="260.0" spacing="5.0" StackPane.alignment="TOP_RIGHT">
+               <children>
+                  <Button mnemonicParsing="false" text="Add">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+                  <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" text="Modify">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="removePart" mnemonicParsing="false" onAction="#onRemovePart" text="Delete">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
+               <padding>
+                  <Insets left="215.0" />
+               </padding>
+            </HBox>
          </children>
       </StackPane>
       <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
-            <Button fx:id="removeProd" mnemonicParsing="false" onAction="#onRemoveProd" text="&lt;--Button" />
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Add" />
+                  <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" text="Modify" />
+                  <Button fx:id="removeProd" mnemonicParsing="false" onAction="#onRemoveProd" text="Delete" />
+               </children>
+               <padding>
+                  <Insets left="215.0" />
+               </padding>
+            </HBox>
          </children>
       </StackPane>
    </children>
