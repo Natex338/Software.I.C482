@@ -62,6 +62,7 @@ public class Controller implements Initializable {
         allPartsView.setItems(getAllParts());
         allProductsView.setItems(getAllProducts());
 
+
         partIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         partNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         partInventory.setCellValueFactory(new PropertyValueFactory<>("stock"));
@@ -78,10 +79,20 @@ public class Controller implements Initializable {
 
 
     public void onRemovePart(ActionEvent actionEvent) {
+        Part SP = allPartsView.getSelectionModel().getSelectedItem();
+        if(SP == null)
+            return;
+        getAllParts().remove(SP);
+
         System.out.println("You Clicked Remove Part");
     }
 
     public void onRemoveProd(ActionEvent actionEvent) {
+        Product SP = allProductsView.getSelectionModel().getSelectedItem();
+        if(SP == null)
+            return;
+        getAllProducts().remove(SP);
+
         System.out.println("You Clicked Remove Product");
     }
 

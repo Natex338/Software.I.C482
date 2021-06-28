@@ -26,6 +26,7 @@ public class Main extends Application {
         Inventory.addProduct(testProduct);
         Inventory.addPart(testerInHouse);
 
+
         launch(args);
 
 
