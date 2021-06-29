@@ -1,5 +1,5 @@
 
-package sample.Model;
+package sample.model;
 
 public class Outsourced extends Part {
     /**

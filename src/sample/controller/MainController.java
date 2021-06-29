@@ -1,26 +1,31 @@
-package sample.Views;
+package sample.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import sample.Model.Part;
-import sample.Model.Product;
+import javafx.stage.Stage;
+import sample.model.Part;
+import sample.model.Product;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static sample.Model.Inventory.*;
+import static sample.model.Inventory.*;
 
 
 
-public class Controller implements Initializable {
+public class MainController implements Initializable {
+
+    public Button addButton;
     @FXML
     private TableView<Part> allPartsView;
     @FXML
@@ -94,5 +99,17 @@ public class Controller implements Initializable {
 
         System.out.println("You Clicked Remove Product");
     }
+
+
+
+    public void onAddRemove(ActionEvent actionEvent)throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/Views/AddRemovePart.fxml"));
+        Stage stage = (Stage)((Button)actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 600, 400);
+        stage.setTitle("Second Screen");
+        stage.setScene(scene);
+        stage.show();
+    }
+
 
 }
