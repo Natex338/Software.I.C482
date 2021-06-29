@@ -82,7 +82,7 @@
                <children>
                   <HBox prefHeight="25.0" prefWidth="260.0" spacing="5.0" StackPane.alignment="TOP_RIGHT">
                      <children>
-                        <Button fx:id="" mnemonicParsing="false" onAction="#onAddRemove" text="Add">
+                        <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddRemove" text="Add">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>

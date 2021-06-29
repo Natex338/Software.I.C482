@@ -12,11 +12,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 import sample.model.Part;
 import sample.model.Product;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static sample.model.Inventory.*;
@@ -24,8 +26,8 @@ import static sample.model.Inventory.*;
 
 
 public class MainController implements Initializable {
-
-    public Button addButton;
+    @FXML
+    private Button addButton;
     @FXML
     private TableView<Part> allPartsView;
     @FXML
@@ -103,7 +105,7 @@ public class MainController implements Initializable {
 
 
     public void onAddRemove(ActionEvent actionEvent)throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/Views/AddRemovePart.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("views/AddRemovePart.fxml")));
         Stage stage = (Stage)((Button)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 600, 400);
         stage.setTitle("Second Screen");
