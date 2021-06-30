@@ -22,7 +22,7 @@ public class AddRemovePart implements Initializable {
     public void toMain(ActionEvent actionEvent) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 898, 398);
+        Scene scene = new Scene(root);
         stage.setTitle("Inventory Management System");
         stage.setScene(scene);
         stage.show();

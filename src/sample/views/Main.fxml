@@ -14,16 +14,16 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="397.0" prefWidth="832.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.MainController">
+<AnchorPane prefHeight="433.0" prefWidth="1014.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.MainController">
    <children>
-      <GridPane layoutX="31.0" layoutY="28.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="373.0" prefWidth="844.0">
+      <GridPane layoutX="-4.0" layoutY="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="446.0" prefWidth="1014.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="397.0" minWidth="10.0" prefWidth="395.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="395.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="577.0" minWidth="10.0" prefWidth="485.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="524.0" minWidth="10.0" prefWidth="484.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="267.0" minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="511.0" minHeight="0.0" prefHeight="176.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="267.0" minHeight="0.0" prefHeight="49.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="511.0" minHeight="0.0" prefHeight="311.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
@@ -36,7 +36,7 @@
                   </Label>
                </children>
             </StackPane>
-            <StackPane alignment="BOTTOM_LEFT" prefHeight="31.0" prefWidth="335.0" GridPane.columnIndex="1">
+            <StackPane alignment="BOTTOM_LEFT" prefHeight="82.0" prefWidth="472.0" GridPane.columnIndex="1">
                <children>
                   <Label alignment="CENTER" text="Product">
                      <font>
@@ -53,9 +53,9 @@
                   <TableView fx:id="allPartsView" prefHeight="200.0" prefWidth="200.0">
                     <columns>
                       <TableColumn fx:id="partIdCol" prefWidth="46.0" text="Part ID" />
-                      <TableColumn fx:id="partNameCol" prefWidth="96.0" text="Part Name" />
-                        <TableColumn fx:id="partInventory" prefWidth="112.0" text="Inventory Level" />
-                        <TableColumn fx:id="partPrice" prefWidth="136.0" text="Price/Cost per Unit" />
+                      <TableColumn fx:id="partNameCol" prefWidth="244.0" text="Part Name" />
+                        <TableColumn fx:id="partInventory" prefWidth="94.0" text="Inventory Level" />
+                        <TableColumn fx:id="partPrice" prefWidth="118.0" text="Price/Cost per Unit" />
                     </columns>
                      <opaqueInsets>
                         <Insets />
@@ -63,14 +63,14 @@
                   </TableView>
                </children>
             </StackPane>
-            <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <StackPane prefHeight="226.0" prefWidth="470.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <TableView fx:id="allProductsView" prefHeight="216.0" prefWidth="419.0">
+                  <TableView fx:id="allProductsView" prefHeight="226.0" prefWidth="494.0">
                     <columns>
                       <TableColumn fx:id="prodId" prefWidth="70.0" text="Product ID" />
-                      <TableColumn fx:id="prodName" prefWidth="97.0" text="Product Name" />
-                        <TableColumn fx:id="prodInventory" prefWidth="97.0" text="Inventory Level" />
-                        <TableColumn fx:id="prodPrice" prefWidth="125.0" text="Price/Cost per Unit" />
+                      <TableColumn fx:id="prodName" prefWidth="222.0" text="Product Name" />
+                        <TableColumn fx:id="prodInventory" prefWidth="92.0" text="Inventory Level" />
+                        <TableColumn fx:id="prodPrice" prefWidth="116.0" text="Price/Cost per Unit" />
                     </columns>
                      <opaqueInsets>
                         <Insets />
@@ -126,13 +126,13 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </GridPane>
-      <Button layoutX="815.0" layoutY="368.0" mnemonicParsing="false" text="Exit" />
-      <Label layoutX="14.0" layoutY="13.0" prefHeight="23.0" prefWidth="331.0" text="Inventory Management System">
+      <Button fx:id="exit" layoutX="965.0" layoutY="428.0" mnemonicParsing="false" onAction="#onExit" text="Exit" />
+      <Label layoutX="2.0" layoutY="1.0" prefHeight="23.0" prefWidth="331.0" text="Inventory Management System">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
-      <TextField layoutX="645.0" layoutY="76.0" prefHeight="27.0" prefWidth="178.0" promptText="Search by Product ID or Name" />
-      <TextField layoutX="249.0" layoutY="76.0" prefHeight="27.0" prefWidth="178.0" promptText="Search by Part ID or Name" />
+      <TextField fx:id="prodTextField" layoutX="825.0" layoutY="49.0" prefHeight="27.0" prefWidth="178.0" promptText="Search by Product ID or Name" />
+      <TextField fx:id="partsTextField" layoutX="321.0" layoutY="49.0" onAction="#getResultsHandler" prefHeight="27.0" prefWidth="178.0" promptText="Search by Part ID or Name" />
    </children>
 </AnchorPane>

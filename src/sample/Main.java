@@ -14,7 +14,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("views/Main.fxml"));
-        Scene scene = new Scene(root, 898, 398);
+        Scene scene = new Scene(root);
         primaryStage.setTitle("Inventory Management System");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -22,14 +22,14 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-        Product testProduct1 = new Product(1, "Test Product1", 5.99, 1, 1, 1);
-        InHouse testerInHouse1 = new InHouse(1, "Test In House Product1", 1, 1, 1, 1, 1);
-        Product testProduct2 = new Product(2, "Test Product2", 2, 2, 1, 5);
-        InHouse testerInHouse2 = new InHouse(2, "Test In House Product2", 5.99, 5, 1, 5, 5);
-        Product testProduct3 = new Product(3, "Test Product3", 5.99, 5, 1, 5);
-        InHouse testerInHouse3 = new InHouse(3, "Test In House Product3", 5.99, 5, 1, 5, 5);
-        Product testProduct4 = new Product(4, "Test Product4", 5.99, 5, 1, 5);
-        InHouse testerInHouse4 = new InHouse(4, "Test In House Product4", 5.99, 5, 1, 5, 5);
+        Product testProduct1 = new Product(11, "Test ProductOne", 5.99, 1, 1, 1);
+        InHouse testerInHouse1 = new InHouse(12, "Test In House ProductOne", 1, 1, 1, 1, 1);
+        Product testProduct2 = new Product(13, "Test ProductTWO", 2, 2, 1, 5);
+        InHouse testerInHouse2 = new InHouse(14, "Test In House ProductTWO", 5.99, 5, 1, 5, 5);
+        Product testProduct3 = new Product(355, "Test ProductThree", 5.99, 5, 1, 5);
+        InHouse testerInHouse3 = new InHouse(213, "Test In House ProductThree", 5.99, 5, 1, 5, 5);
+        Product testProduct4 = new Product(41, "Test ProductFour", 5.99, 5, 1, 5);
+        InHouse testerInHouse4 = new InHouse(44, "Test In House ProductFour", 5.99, 5, 1, 5, 5);
 
         Inventory.addProduct(testProduct1);
         Inventory.addPart(testerInHouse1);
