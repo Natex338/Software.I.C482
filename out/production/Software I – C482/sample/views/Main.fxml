@@ -82,7 +82,7 @@
                <children>
                   <HBox prefHeight="25.0" prefWidth="260.0" spacing="5.0" StackPane.alignment="TOP_RIGHT">
                      <children>
-                        <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddRemove" text="Add">
+                        <Button mnemonicParsing="false" onAction="#onclickAdd" text="Add">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -132,7 +132,7 @@
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
-      <TextField layoutX="656.0" layoutY="76.0" prefHeight="27.0" prefWidth="178.0" promptText="Search by Product ID or Name" />
-      <TextField layoutX="252.0" layoutY="76.0" prefHeight="27.0" prefWidth="178.0" promptText="Search by Part ID or Name" />
+      <TextField layoutX="645.0" layoutY="76.0" prefHeight="27.0" prefWidth="178.0" promptText="Search by Product ID or Name" />
+      <TextField layoutX="249.0" layoutY="76.0" prefHeight="27.0" prefWidth="178.0" promptText="Search by Part ID or Name" />
    </children>
 </AnchorPane>

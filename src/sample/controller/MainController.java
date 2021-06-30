@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,13 +13,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import javafx.stage.Stage;
-import org.jetbrains.annotations.NotNull;
 import sample.model.Part;
 import sample.model.Product;
 
+
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static sample.model.Inventory.*;
@@ -26,8 +26,9 @@ import static sample.model.Inventory.*;
 
 
 public class MainController implements Initializable {
-    @FXML
-    private Button addButton;
+    public Button removePart;
+    public Button removeProd;
+    public Button Add;
     @FXML
     private TableView<Part> allPartsView;
     @FXML
@@ -50,10 +51,6 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<Product, Integer>  prodPrice;
 
-    @FXML
-    private Button removePart;
-    @FXML
-    private Button removeProd;
 
 
 
@@ -104,14 +101,12 @@ public class MainController implements Initializable {
 
 
 
-    public void onAddRemove(ActionEvent actionEvent)throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("views/AddRemovePart.fxml")));
-        Stage stage = (Stage)((Button)actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 600, 400);
+    public void onclickAdd(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/sample/views/add.fxml"));
+        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 898, 398);
         stage.setTitle("Second Screen");
         stage.setScene(scene);
         stage.show();
     }
-
-
 }
