@@ -9,10 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import javafx.stage.Stage;
@@ -25,6 +22,7 @@ import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static sample.model.Inventory.*;
@@ -79,16 +77,12 @@ public class MainController implements Initializable {
         if(SP == null)
             return;
         getAllParts().remove(SP);
-
-        System.out.println("You Clicked Remove Part");
     }
     public void onRemoveProd(ActionEvent actionEvent) {
         Product SP = allProductsView.getSelectionModel().getSelectedItem();
         if(SP == null)
             return;
         getAllProducts().remove(SP);
-
-        System.out.println("You Clicked Remove Product");
     }
     public void onclickAdd(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/sample/views/addRemove.fxml"));
@@ -98,10 +92,9 @@ public class MainController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-    public void getResultsHandler(ActionEvent actionEvent){
+    public void getResultsPartHandler(ActionEvent actionEvent){
         String q = partsTextField.getText();
         ObservableList<Part> parts=searchByPartName(q);
-        allPartsView.setItems(parts);
         if(parts.size()==0){
             try {
                 int partId = Integer.parseInt(q);
@@ -114,6 +107,8 @@ public class MainController implements Initializable {
                 JOptionPane.showMessageDialog(null, "No Part Found", "ERROR!",JOptionPane.WARNING_MESSAGE);
             }
         }
+        if(!parts.isEmpty())
+        allPartsView.setItems(parts);
 
     }
     private ObservableList<Part>searchByPartName(String partialName){
@@ -138,13 +133,59 @@ public class MainController implements Initializable {
         JOptionPane.showMessageDialog(null, "No part with the ID: "+pID+" found!", "ERROR!",JOptionPane.WARNING_MESSAGE);
        return null;
     }
-    public void onExit(ActionEvent actionEvent) {
-        int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to Exit?","Warning",JOptionPane.YES_NO_OPTION);
-        if(dialogResult == JOptionPane.YES_OPTION){
-         
-            System.exit(0);
+    public void getResultsProdHandler(ActionEvent actionEvent) {
+        String q = prodTextField.getText();
+        ObservableList<Product> prod=searchByProdName(q);
+        if(prod.size()==0){
+            try {
+                int prodId = Integer.parseInt(q);
+                Product prodSearch = getProdByID(prodId);
+                if (prodSearch != null) {
+                    prod.add(prodSearch);
+                }
+            }
+            catch (NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "No Product Found", "ERROR!",JOptionPane.WARNING_MESSAGE);
+            }
         }
+        if(!prod.isEmpty())
+            allProductsView.setItems(prod);
+
+    }
+    private Product getProdByID(int pID){
+        ObservableList<Product> allProd = Inventory.getAllProducts();
+
+        for (Product p:allProd){
+            if (p.getId()== pID){
+                return p;
+            }
+        }
+        JOptionPane.showMessageDialog(null, "No product with the ID: "+pID+" found!", "ERROR!",JOptionPane.WARNING_MESSAGE);
+        return null;
+    }
+    private ObservableList<Product>searchByProdName(String partialName){
+        ObservableList<Product> prodName = FXCollections.observableArrayList();
+        ObservableList<Product> allProd = Inventory.getAllProducts();
+
+        for(Product p:allProd){
+            if ((p.getName()).toLowerCase().contains((partialName).toLowerCase())){
+                prodName.add(p);
+            }
+        }
+        return prodName;
+    }
+    public void onExit(ActionEvent actionEvent) {
+        Alert exitAlert= new Alert(Alert.AlertType.CONFIRMATION);
+        exitAlert.setTitle("Exiting Program");
+        exitAlert.setHeaderText("Confirm Exit");
+        exitAlert.setContentText("Are you sure you want to close the program?");
+        Optional<ButtonType> result = exitAlert.showAndWait();
+        if(result.get()==ButtonType.OK)
+            System.exit(0);
+
 
        
     }
+
+
 }
