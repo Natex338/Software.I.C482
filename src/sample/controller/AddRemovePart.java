@@ -30,9 +30,10 @@ public class AddRemovePart implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
-    public void toMain(ActionEvent actionEvent) throws IOException{
+
+    public void toMain(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setTitle("Inventory Management System");
         stage.setScene(scene);
@@ -48,4 +49,5 @@ public class AddRemovePart implements Initializable {
         machineCompany.setText("Company ID");
 
     }
+
 }

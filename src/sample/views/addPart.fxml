@@ -13,7 +13,7 @@
    <children>
       <Button layoutX="534.0" layoutY="361.0" mnemonicParsing="false" onAction="#toMain" text="Cancel" />
       <Button layoutX="479.0" layoutY="361.0" mnemonicParsing="false" text="Save" />
-      <RadioButton fx:id="inHousePart" layoutX="300.0" layoutY="53.0" mnemonicParsing="false" onAction="#onInhouse" text="In House">
+      <RadioButton fx:id="inHousePart" layoutX="300.0" layoutY="53.0" mnemonicParsing="false" onAction="#onInHouse" text="In House">
          <toggleGroup>
             <ToggleGroup fx:id="pGroup" />
          </toggleGroup></RadioButton>
