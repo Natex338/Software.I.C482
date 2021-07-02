@@ -103,7 +103,12 @@ public class MainController implements Initializable {
                 }
             }
             catch (NumberFormatException e){
-                JOptionPane.showMessageDialog(null, "No Part Found", "ERROR!",JOptionPane.WARNING_MESSAGE);
+                Alert noPart =new Alert(Alert.AlertType.WARNING);
+                noPart.setTitle("No Part Found!");
+                noPart.setHeaderText("No Part Found!");
+                noPart.setContentText("Please enter a valid part name or part ID");
+                Optional<ButtonType> result = noPart.showAndWait();
+
             }
         }
         if(!parts.isEmpty())
@@ -129,7 +134,11 @@ public class MainController implements Initializable {
                 return p;
             }
         }
-        JOptionPane.showMessageDialog(null, "No part with the ID: "+pID+" found!", "ERROR!",JOptionPane.WARNING_MESSAGE);
+        Alert noProduct =new Alert(Alert.AlertType.WARNING);
+        noProduct.setTitle("No Part Found!");
+        noProduct.setHeaderText("No Part Found!");
+        noProduct.setContentText("No part with the ID: "+pID+" found!");
+        Optional<ButtonType> result = noProduct.showAndWait();
        return null;
     }
     public void getResultsProdHandler(ActionEvent actionEvent) {
@@ -144,10 +153,15 @@ public class MainController implements Initializable {
                 }
             }
             catch (NumberFormatException e){
-                JOptionPane.showMessageDialog(null, "No Product Found", "ERROR!",JOptionPane.WARNING_MESSAGE);
+                Alert noProduct =new Alert(Alert.AlertType.WARNING);
+                noProduct.setTitle("No Product Found!");
+                noProduct.setHeaderText("No Product Found!");
+                noProduct.setContentText("Please enter a valid product name or product ID");
+                Optional<ButtonType> result = noProduct.showAndWait();
             }
         }
         if(!prod.isEmpty())
+
             allProductsView.setItems(prod);
 
     }
@@ -159,7 +173,11 @@ public class MainController implements Initializable {
                 return p;
             }
         }
-        JOptionPane.showMessageDialog(null, "No product with the ID: "+pID+" found!", "ERROR!",JOptionPane.WARNING_MESSAGE);
+        Alert noProduct =new Alert(Alert.AlertType.WARNING);
+        noProduct.setTitle("No Part Found!");
+        noProduct.setHeaderText("No Part Found!");
+        noProduct.setContentText("No product with the ID: "+pID+" found!");
+        Optional<ButtonType> result = noProduct.showAndWait();
         return null;
     }
     private ObservableList<Product>searchByProdName(String partialName){

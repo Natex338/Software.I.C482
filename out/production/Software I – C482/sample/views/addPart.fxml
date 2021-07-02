@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -12,8 +13,11 @@
    <children>
       <Button layoutX="534.0" layoutY="361.0" mnemonicParsing="false" onAction="#toMain" text="Cancel" />
       <Button layoutX="479.0" layoutY="361.0" mnemonicParsing="false" text="Save" />
-      <RadioButton fx:id="inHousePart" layoutX="300.0" layoutY="53.0" mnemonicParsing="false" text="In House" />
-      <RadioButton fx:id="partOutsourced" layoutX="437.0" layoutY="53.0" mnemonicParsing="false" text="Outsourced" />
+      <RadioButton fx:id="inHousePart" layoutX="300.0" layoutY="53.0" mnemonicParsing="false" onAction="#onInHouse" text="In House">
+         <toggleGroup>
+            <ToggleGroup fx:id="pGroup" />
+         </toggleGroup></RadioButton>
+      <RadioButton fx:id="partOutsourced" layoutX="437.0" layoutY="53.0" mnemonicParsing="false" onAction="#onOutsourced" text="Outsourced" toggleGroup="$pGroup" />
       <VBox layoutX="51.0" layoutY="101.0" prefHeight="198.0" prefWidth="68.0" spacing="15.0">
          <children>
             <Label text="ID" />
