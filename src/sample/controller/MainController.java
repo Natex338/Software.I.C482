@@ -21,7 +21,6 @@ import sample.model.Product;
 import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -85,7 +84,7 @@ public class MainController implements Initializable {
         getAllProducts().remove(SP);
     }
     public void onclickAdd(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/sample/views/addRemove.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/sample/views/addPart.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setTitle("Second Screen");
