@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import sample.model.InHouse;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,6 +26,7 @@ public class AddRemovePart implements Initializable {
     public Label machineCompany;
     public RadioButton inHousePart;
     public RadioButton partOutsourced;
+    public TextField partMin;
 
 
     @Override
@@ -50,4 +52,17 @@ public class AddRemovePart implements Initializable {
 
     }
 
+    public void onSaveP(ActionEvent actionEvent) {
+       if(inHousePart.isSelected()){
+
+           int pId = Integer.parseInt(partID.getText());
+           String pName= partName.getText();
+           int pInv = Integer.parseInt(partInv.getText());
+           int pPrice = Integer.parseInt(partMax.getText());
+           int pMax=  Integer.parseInt(partMax.getText());
+           int pMin= Integer.parseInt(partMin.getText());
+           int machineId= Integer.parseInt(machineIDCompName.getText());
+           InHouse p = new InHouse(pId,pName,pInv,pPrice,pMax,pMin,machineId);
+        }
+    }
 }
