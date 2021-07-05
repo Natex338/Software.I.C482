@@ -1,6 +1,7 @@
 package sample.controller;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -9,26 +10,35 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import sample.model.InHouse;
-
+import sample.model.Inventory;
+import sample.model.Outsourced;
 import java.io.IOException;
 import java.net.URL;
+
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class AddRemovePart implements Initializable {
+    @FXML
+    private RadioButton inHousePart;
+    @FXML
+    private TextField partID;
+    @FXML
+    private TextField partName;
+    @FXML
+    private TextField partInv;
+    @FXML
+    private TextField partPrice;
+    @FXML
+    private TextField partMax;
+    @FXML
+    private TextField machineIDCompName;
+    @FXML
+    private Label machineCompany;
+    @FXML
+    private TextField partMin;
 
-
-    public TextField partID;
-    public TextField partName;
-    public TextField partInv;
-    public TextField partPrice;
-    public TextField partMax;
-    public TextField machineIDCompName;
-    public Label machineCompany;
-    public RadioButton inHousePart;
-    public RadioButton partOutsourced;
-    public TextField partMin;
-
-
+    String validPart =new String();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
@@ -52,17 +62,35 @@ public class AddRemovePart implements Initializable {
 
     }
 
-    public void onSaveP(ActionEvent actionEvent) {
-       if(inHousePart.isSelected()){
+    public void onSaveP(ActionEvent actionEvent) throws IOException {
+        String pName =partName.getText();
+        String pMin =partMin.getText();
+        String pId = partID.getText();
+        String pInv = partInv.getText();
+        String pMax =partMax.getText();
+        String pPrice = partPrice.getText();
 
-           int pId = Integer.parseInt(partID.getText());
-           String pName= partName.getText();
-           int pInv = Integer.parseInt(partInv.getText());
-           int pPrice = Integer.parseInt(partMax.getText());
-           int pMax=  Integer.parseInt(partMax.getText());
-           int pMin= Integer.parseInt(partMin.getText());
-           int machineId= Integer.parseInt(machineIDCompName.getText());
-           InHouse p = new InHouse(pId,pName,pInv,pPrice,pMax,pMin,machineId);
+            if (inHousePart.isSelected()) {
+                int machineId = Integer.parseInt(machineIDCompName.getText());
+                InHouse p = new InHouse(pId, pName, pPrice, pInv, pMax, pMin, machineId);
+                Inventory.addPart(p);
+            } else {
+                String companyName = machineIDCompName.getText();
+                Outsourced outPart = new Outsourced(pId, pName, pPrice, pInv, pMin, pMax, companyName);
+                Inventory.addPart(outPart);
+            }
         }
+        catch (Exception e){
+            System.out.println("you done fucked up");
+        }
+
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/sample/views/Main.fxml")));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setTitle("Inventory Management System");
+        stage.setScene(scene);
+        stage.show();
+
+
     }
 }

@@ -11,19 +11,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-
 import javafx.stage.Stage;
 import sample.model.Inventory;
 import sample.model.Part;
 import sample.model.Product;
-
-
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import static sample.model.Inventory.*;
 
 
@@ -59,6 +54,7 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         allPartsView.setItems(getAllParts());
         allProductsView.setItems(getAllProducts());
         partIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -83,11 +79,11 @@ public class MainController implements Initializable {
             return;
         getAllProducts().remove(SP);
     }
-    public void onclickAdd(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/sample/views/addPart.fxml"));
+    public void onclickAddPart(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/sample/views/AddPart.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        stage.setTitle("Second Screen");
+        stage.setTitle("Add Part");
         stage.setScene(scene);
         stage.show();
     }
@@ -203,6 +199,8 @@ public class MainController implements Initializable {
 
        
     }
+
+
 
 
 }

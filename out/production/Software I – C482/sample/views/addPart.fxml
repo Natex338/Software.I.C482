@@ -12,13 +12,13 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.AddRemovePart">
    <children>
       <Button layoutX="534.0" layoutY="361.0" mnemonicParsing="false" onAction="#toMain" text="Cancel" />
-      <Button layoutX="479.0" layoutY="361.0" mnemonicParsing="false" text="Save" />
+      <Button fx:id="saveP" layoutX="479.0" layoutY="361.0" mnemonicParsing="false" onAction="#onSaveP" text="Save" />
       <RadioButton fx:id="inHousePart" layoutX="300.0" layoutY="53.0" mnemonicParsing="false" onAction="#onInHouse" text="In House">
          <toggleGroup>
             <ToggleGroup fx:id="pGroup" />
          </toggleGroup></RadioButton>
       <RadioButton fx:id="partOutsourced" layoutX="437.0" layoutY="53.0" mnemonicParsing="false" onAction="#onOutsourced" text="Outsourced" toggleGroup="$pGroup" />
-      <VBox layoutX="51.0" layoutY="101.0" prefHeight="198.0" prefWidth="68.0" spacing="15.0">
+      <VBox layoutX="18.0" layoutY="100.0" prefHeight="200.0" prefWidth="66.0" spacing="17.0">
          <children>
             <Label text="ID" />
             <Label text="Name" />
@@ -28,7 +28,7 @@
             <Label fx:id="machineCompany" text="Machine ID" />
          </children>
       </VBox>
-      <VBox layoutX="124.0" layoutY="97.0" prefHeight="200.0" prefWidth="131.0" spacing="7.0">
+      <VBox layoutX="101.0" layoutY="100.0" prefHeight="183.0" prefWidth="151.0" spacing="9.0">
          <children>
             <TextField fx:id="partID" />
             <TextField fx:id="partName" />
@@ -43,7 +43,7 @@
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <TextField layoutX="328.0" layoutY="224.0" prefHeight="25.0" prefWidth="119.0" />
+      <TextField fx:id="partMin" layoutX="328.0" layoutY="224.0" prefHeight="25.0" prefWidth="119.0" />
       <Label layoutX="297.0" layoutY="228.0" text="Min" />
    </children>
 </AnchorPane>

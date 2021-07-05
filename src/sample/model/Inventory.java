@@ -8,6 +8,10 @@ public class Inventory {
     private static final ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
 
+    public static String validPart(String pName, double pPrice, int inv, int min, int max, String exceptionError){
+
+
+    }
     public static void addPart(Part newParts){
       if(newParts !=null){
         allParts.add(newParts);
@@ -80,6 +84,7 @@ public class Inventory {
     public static ObservableList<Product> getAllProducts(){
         return allProducts;
     }
+
 
 }
 
