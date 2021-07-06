@@ -76,11 +76,10 @@ public class AddPart implements Initializable {
                 Inventory.addPart(outPart);
             }
 
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/sample/views/Main.fxml")));
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setTitle("Inventory Management System");
-        stage.setScene(scene);
-        stage.show();
+            Parent root = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));
+            Stage stage =  new Stage();
+            stage.setTitle("Inventory Management System");
+            stage.setScene(new Scene(root));
+            stage.show();
     }
 }

@@ -17,6 +17,7 @@ import sample.model.Part;
 import sample.model.Product;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import static sample.model.Inventory.*;
@@ -209,7 +210,13 @@ public class MainController implements Initializable {
        
     }
 
-
-
+    public void onModify(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/sample/views/ModifyPart.fxml")));
+        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setTitle("Modify Part");
+        stage.setScene(scene);
+        stage.show();
+    }
 
 }
