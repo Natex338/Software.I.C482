@@ -3,14 +3,15 @@ package sample.model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+
+
 public class Inventory {
     private static final ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static final ObservableList<Product> allProducts = FXCollections.observableArrayList();
+    public static int partIdCount=100;
 
-
-    public static String validPart(String pName, double pPrice, int inv, int min, int max, String exceptionError){
-
-
+    public static void addToPartId(){
+       partIdCount++;
     }
     public static void addPart(Part newParts){
       if(newParts !=null){

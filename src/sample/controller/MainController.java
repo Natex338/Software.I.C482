@@ -68,10 +68,19 @@ public class MainController implements Initializable {
 
     }
     public void onRemovePart(ActionEvent actionEvent) {
-        Part SP = allPartsView.getSelectionModel().getSelectedItem();
-        if(SP == null)
-            return;
-        getAllParts().remove(SP);
+
+            Alert removePartAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            removePartAlert.setTitle("Deleting Part!");
+            removePartAlert.setHeaderText("Part will be removed!");
+            removePartAlert.setContentText("Are you sure you want to delete this part?");
+            Optional<ButtonType> result = removePartAlert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                Part SP = allPartsView.getSelectionModel().getSelectedItem();
+                if (SP == null)
+                    return;
+                getAllParts().remove(SP);
+
+        }
     }
     public void onRemoveProd(ActionEvent actionEvent) {
         Product SP = allProductsView.getSelectionModel().getSelectedItem();

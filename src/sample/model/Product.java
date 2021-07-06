@@ -79,6 +79,9 @@ public class Product {
     }
 
     public boolean deleteAssociatedPart(Part p){
+
+
+
         associatedParts.remove(p);
             return true;
     }
