@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class AddRemovePart implements Initializable {
+public class AddPart implements Initializable {
     @FXML
     private RadioButton inHousePart;
     @FXML
@@ -38,7 +38,7 @@ public class AddRemovePart implements Initializable {
     @FXML
     private TextField partMin;
 
-    String validPart =new String();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
@@ -70,6 +70,7 @@ public class AddRemovePart implements Initializable {
         String pMax =partMax.getText();
         String pPrice = partPrice.getText();
 
+
             if (inHousePart.isSelected()) {
                 int machineId = Integer.parseInt(machineIDCompName.getText());
                 InHouse p = new InHouse(pId, pName, pPrice, pInv, pMax, pMin, machineId);
@@ -79,10 +80,6 @@ public class AddRemovePart implements Initializable {
                 Outsourced outPart = new Outsourced(pId, pName, pPrice, pInv, pMin, pMax, companyName);
                 Inventory.addPart(outPart);
             }
-        }
-        catch (Exception e){
-            System.out.println("you done fucked up");
-        }
 
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/sample/views/Main.fxml")));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -90,7 +87,5 @@ public class AddRemovePart implements Initializable {
         stage.setTitle("Inventory Management System");
         stage.setScene(scene);
         stage.show();
-
-
     }
 }
