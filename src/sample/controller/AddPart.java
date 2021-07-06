@@ -65,7 +65,7 @@ public class AddPart implements Initializable {
         int partID= Inventory.partIdCount;
         int pInv = Integer.parseInt(partInv.getText());
         int pMax =Integer.parseInt(partMax.getText());
-        int pPrice = Integer.parseInt(partPrice.getText());
+        Double pPrice = Double.parseDouble(partPrice.getText());
 
             if (inHousePart.isSelected()) {
                 int machineId = Integer.parseInt(machineIDCompName.getText());
@@ -77,10 +77,10 @@ public class AddPart implements Initializable {
                 Inventory.addPart(outPart);
             }
 
-            Parent root = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));
-            Stage stage =  new Stage();
-            stage.setTitle("Inventory Management System");
-            stage.setScene(new Scene(root));
-            stage.show();
+        Parent backToMain = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));
+        Scene scene = new Scene(backToMain);
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
     }
 }

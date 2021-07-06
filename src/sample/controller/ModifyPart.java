@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -66,11 +67,11 @@ public class ModifyPart implements Initializable {
     }
     public void backToMain(ActionEvent actionEvent) throws IOException {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));
-            Stage stage =  new Stage();
-            stage.setTitle("Inventory Management System");
-            stage.setScene(new Scene(root));
-            stage.show();
+        Parent partCancel = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));
+        Scene scene = new Scene(partCancel);
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
     }
     public void onInHouse(ActionEvent actionEvent) {
         machineCompany.setText("Machine ID");
@@ -86,8 +87,8 @@ public class ModifyPart implements Initializable {
            partP.setName(partName.getText());
            partP.setMin(Integer.parseInt(partMin.getText()));
            partP.setMax(Integer.parseInt(partMax.getText()));
-           partP.setPrice(Integer.parseInt(partPrice.getText()));
-           partP.setStock(Integer.parseInt(partPrice.getText()));
+           partP.setPrice(Double.parseDouble(partPrice.getText()));
+           partP.setStock(Integer.parseInt(partInv.getText()));
 
 
 
