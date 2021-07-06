@@ -20,6 +20,7 @@ import java.util.ResourceBundle;
 
 public class AddPart implements Initializable {
     public TextField partIDField;
+    public RadioButton partOutsourced;
     @FXML
     private RadioButton inHousePart;
     @FXML

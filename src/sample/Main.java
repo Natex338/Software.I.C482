@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sample.model.InHouse;
 import sample.model.Inventory;
+import sample.model.Outsourced;
 import sample.model.Product;
 
 public class Main extends Application {
@@ -23,7 +24,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         Product testProduct1 = new Product(11, "Test ProductOne", 5.99, 1, 1, 1);
-        InHouse testerInHouse1 = new InHouse(12, "Test In House ProductOne", 1, 1, 1, 1, 1);
+        Outsourced testerInHouse1 = new Outsourced(12, "Test In House ProductOne", 1, 1, 1, 1, "Nathan");
         Product testProduct2 = new Product(13, "Test ProductTWO", 2, 2, 1, 5);
         InHouse testerInHouse2 = new InHouse(14, "Test In House ProductTWO", 5.99, 5, 1, 5, 5);
         Product testProduct3 = new Product(355, "Test ProductThree", 5.99, 5, 1, 5);

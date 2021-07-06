@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -12,18 +11,18 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sample.model.InHouse;
-import sample.model.Inventory;
 import sample.model.Outsourced;
 import sample.model.Part;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ModifyPart implements Initializable {
     public TextField partIDField;
     @FXML
     private RadioButton inHousePart;
+    @FXML
+    private RadioButton partOutsourced;
     @FXML
     private TextField partName;
     @FXML
@@ -39,12 +38,33 @@ public class ModifyPart implements Initializable {
     @FXML
     private TextField partMin;
 
+    private static Part partP= null;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+       //setting the parts fields
+        partP = MainController.partPass();
+        partName.setText(partP.getName());
+        partMin.setText(String.valueOf(partP.getMin()));
+        partMax.setText(String.valueOf(partP.getMax()));
+        partInv.setText(String.valueOf(partP.getStock()));
+        partPrice.setText(String.valueOf(partP.getPrice()));
 
+        //radio buttons selected to the right position/fill in correct fields.
+        if(partP instanceof InHouse){
+            inHousePart.setSelected(true);
+            machineCompany.setText("Machine ID");
+            machineIDCompName.setText(String.valueOf(((InHouse) partP).getMachineID()));
+        }
+        if (partP instanceof Outsourced) {
+            partOutsourced.setSelected(true);
+            machineCompany.setText("Company Name");
+            machineIDCompName.setText(String.valueOf(((Outsourced) partP).getCompanyName()));
+        }
 
     }
-    public void backtoMain(ActionEvent actionEvent) throws IOException {
+    public void backToMain(ActionEvent actionEvent) throws IOException {
 
             Parent root = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));
             Stage stage =  new Stage();
@@ -61,10 +81,23 @@ public class ModifyPart implements Initializable {
 
     }
     public void onSaveP(ActionEvent actionEvent) throws IOException {
+       try {
+
+           partP.setName(partName.getText());
+           partP.setMin(Integer.parseInt(partMin.getText()));
+           partP.setMax(Integer.parseInt(partMax.getText()));
+           partP.setPrice(Integer.parseInt(partPrice.getText()));
+           partP.setStock(Integer.parseInt(partPrice.getText()));
+
+
+
+
+
+/*
 
         String pName =partName.getText();
         int pMin =Integer.parseInt(partMin.getText());
-        int partID= Inventory.partIdCount;
+        int partID= partP.getId();
         int pInv = Integer.parseInt(partInv.getText());
         int pMax =Integer.parseInt(partMax.getText());
         int pPrice = Integer.parseInt(partPrice.getText());
@@ -79,11 +112,16 @@ public class ModifyPart implements Initializable {
             Inventory.addPart(outPart);
         }
 
-            Parent root = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));
-            Stage stage =  new Stage();
-            stage.setTitle("Inventory Management System");
-            stage.setScene(new Scene(root));
-            stage.show();
+ */
+           Parent root = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));
+           Stage stage = new Stage();
+           stage.setTitle("Inventory Management System");
+           stage.setScene(new Scene(root));
+           stage.show();
 
+       }
+       catch (Exception e){
+           System.out.println(e.getMessage());
+       }
     }
 }

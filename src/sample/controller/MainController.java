@@ -51,6 +51,8 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<Product, Integer>  prodPrice;
 
+    public static Part partP = null;
+
 
 
     @Override
@@ -68,6 +70,12 @@ public class MainController implements Initializable {
         prodPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
 
     }
+
+    public static Part partPass(){
+
+        return partP;
+    }
+
     public void onRemovePart(ActionEvent actionEvent) {
 
             Alert removePartAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -211,6 +219,7 @@ public class MainController implements Initializable {
     }
 
     public void onModify(ActionEvent actionEvent) throws IOException {
+        partP = allPartsView.getSelectionModel().getSelectedItem();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/sample/views/ModifyPart.fxml")));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
