@@ -12,6 +12,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sample.model.InHouse;
+import sample.model.Inventory;
 import sample.model.Outsourced;
 import sample.model.Part;
 import java.io.IOException;
@@ -20,6 +21,7 @@ import java.util.ResourceBundle;
 
 public class ModifyPart implements Initializable {
     public TextField partIDField;
+    public Label errorMessages;
     @FXML
     private RadioButton inHousePart;
     @FXML
@@ -82,53 +84,42 @@ public class ModifyPart implements Initializable {
 
     }
     public void onSaveP(ActionEvent actionEvent) throws IOException {
-       try {
-
+        boolean validSave=true;
+        try {
            partP.setName(partName.getText());
            partP.setMin(Integer.parseInt(partMin.getText()));
            partP.setMax(Integer.parseInt(partMax.getText()));
            partP.setPrice(Double.parseDouble(partPrice.getText()));
            partP.setStock(Integer.parseInt(partInv.getText()));
-           if (partOutsourced.isSelected()){
-               if(partP instanceof InHouse){
 
-               }
-               ((Outsourced)partP).setCompanyName(machineIDCompName.getText());
+
+           if (partOutsourced.isSelected())
+           {
+               Outsourced part = new Outsourced(partP.getId(), partP.getName(), partP.getPrice(), partP.getStock(), partP.getMin(), partP.getMax(), machineIDCompName.getText());
+               Inventory.addPart(part);
+               Inventory.deletePart(partP);
            }
-           if (inHousePart.isSelected()){
-               ((InHouse)partP).setMachineID(Integer.parseInt(machineIDCompName.getText()));
+           if (inHousePart.isSelected())
+           {
+               InHouse part = new InHouse(partP.getId(), partP.getName(), partP.getPrice(), partP.getStock(), partP.getMin(), partP.getMax(), Integer.parseInt(machineIDCompName.getText()));
+               Inventory.addPart(part);
+               Inventory.deletePart(partP);
            }
 
 
-
-
-           /*
-        String pName =partName.getText();
-        int pMin =Integer.parseInt(partMin.getText());
-        int partID= partP.getId();
-        int pInv = Integer.parseInt(partInv.getText());
-        int pMax =Integer.parseInt(partMax.getText());
-        int pPrice = Integer.parseInt(partPrice.getText());
-
-        if (inHousePart.isSelected()) {
-            int machineId = Integer.parseInt(machineIDCompName.getText());
-            InHouse p = new InHouse(partID, pName, pPrice, pInv, pMax, pMin, machineId);
-            Inventory.addPart(p);
-        } else {
-            String companyName = machineIDCompName.getText();
-           Outsourced outPart = new Outsourced(partID, pName, pPrice, pInv, pMin, pMax, companyName);
-            Inventory.addPart(outPart);
         }
- */
-           Parent partCancel = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));
-           Scene scene = new Scene(partCancel);
-           Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-           window.setScene(scene);
-           window.show();
+        catch (Exception e){
+            validSave =false;
+            errorMessages.setText(e.getMessage());
+            System.out.println(e.getMessage());
 
-       }
-       catch (Exception e){
-           System.out.println(e.getMessage());
-       }
+        }
+        if (validSave){
+            Parent partCancel = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));
+            Scene scene = new Scene(partCancel);
+            Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        }
     }
 }

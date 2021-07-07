@@ -44,7 +44,11 @@ public class Inventory {
       return null;
   }
 
-    public static String validatePart(String partName) {
+    public static String validatePart( String name, double price, int stock, int min, int max, String exceptionMsg) {
+        String message;
+
+
+
     return "g";
     }
 

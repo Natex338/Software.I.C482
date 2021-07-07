@@ -15,6 +15,7 @@ import sample.model.Outsourced;
 import java.io.IOException;
 import java.net.URL;
 
+import java.security.MessageDigest;
 import java.util.ResourceBundle;
 
 public class AddPart implements Initializable {
