@@ -44,8 +44,8 @@ public class Inventory {
       return null;
   }
 
-    public static String validatePart(String partName, ) {
-
+    public static String validatePart(String partName) {
+    return "g";
     }
 
     public static Product lookupProduct(String productName){
