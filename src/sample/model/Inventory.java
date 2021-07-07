@@ -6,23 +6,35 @@ import javafx.collections.ObservableList;
 
 
 public class Inventory {
+    public static int partIdCount=0;
     private static final ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static final ObservableList<Product> allProducts = FXCollections.observableArrayList();
-    public static int partIdCount=100;
-
-    public static void addToPartId(){
+        /**
+     * Part count increments every part on add call..
+     */
+    public static void incrementPartId(){
        partIdCount++;
     }
+    /**
+     * @param newParts adding part to part list
+     */
     public static void addPart(Part newParts){
       if(newParts !=null){
         allParts.add(newParts);
     }
   }
+    /**
+     * @param product Adding product to the product list
+     */
     public static void addProduct(Product product){
       if(product !=null){
         allProducts.add(product);
     }
   }
+    /**
+     * @param productId looking up product part
+     * @return Return part with ID
+     */
     public static Product lookupProduct(int productId){
       for(Product p : allProducts)
    {
@@ -31,6 +43,11 @@ public class Inventory {
     }
       return null;
   }
+
+    public static String validatePart(String partName, ) {
+
+    }
+
     public static Product lookupProduct(String productName){
       for(Product p : allProducts)
         {

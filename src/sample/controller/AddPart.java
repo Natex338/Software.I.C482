@@ -15,7 +15,6 @@ import sample.model.Outsourced;
 import java.io.IOException;
 import java.net.URL;
 
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class AddPart implements Initializable {
@@ -40,7 +39,7 @@ public class AddPart implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Inventory.addToPartId();
+        Inventory.incrementPartId();
     }
     public void toMain(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));

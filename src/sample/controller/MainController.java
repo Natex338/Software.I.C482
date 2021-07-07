@@ -17,6 +17,7 @@ import sample.model.Part;
 import sample.model.Product;
 import java.io.IOException;
 import java.net.URL;
+import java.security.AllPermission;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -213,19 +214,22 @@ public class MainController implements Initializable {
         Optional<ButtonType> result = exitAlert.showAndWait();
         if(result.get()==ButtonType.OK)
             System.exit(0);
-
-
-       
     }
-
     public void onModify(ActionEvent actionEvent) throws IOException {
+        if (allPartsView.getSelectionModel().isEmpty()) {
+        Alert nothingSelected = new Alert(Alert.AlertType.WARNING);
+        nothingSelected.setTitle("Nothing Selected");
+        nothingSelected.setHeaderText("Please Select a part");
+        nothingSelected.setContentText("You must select a part to modify it");
+        nothingSelected.showAndWait();
+        return;
+        }
         partP = allPartsView.getSelectionModel().getSelectedItem();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/sample/views/ModifyPart.fxml")));
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setTitle("Modify Part");
         stage.setScene(scene);
         stage.show();
     }
-
 }

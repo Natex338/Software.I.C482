@@ -89,13 +89,20 @@ public class ModifyPart implements Initializable {
            partP.setMax(Integer.parseInt(partMax.getText()));
            partP.setPrice(Double.parseDouble(partPrice.getText()));
            partP.setStock(Integer.parseInt(partInv.getText()));
+           if (partOutsourced.isSelected()){
+               if(partP instanceof InHouse){
+
+               }
+               ((Outsourced)partP).setCompanyName(machineIDCompName.getText());
+           }
+           if (inHousePart.isSelected()){
+               ((InHouse)partP).setMachineID(Integer.parseInt(machineIDCompName.getText()));
+           }
 
 
 
 
-
-/*
-
+           /*
         String pName =partName.getText();
         int pMin =Integer.parseInt(partMin.getText());
         int partID= partP.getId();
@@ -109,16 +116,15 @@ public class ModifyPart implements Initializable {
             Inventory.addPart(p);
         } else {
             String companyName = machineIDCompName.getText();
-            Outsourced outPart = new Outsourced(partID, pName, pPrice, pInv, pMin, pMax, companyName);
+           Outsourced outPart = new Outsourced(partID, pName, pPrice, pInv, pMin, pMax, companyName);
             Inventory.addPart(outPart);
         }
-
  */
-           Parent root = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));
-           Stage stage = new Stage();
-           stage.setTitle("Inventory Management System");
-           stage.setScene(new Scene(root));
-           stage.show();
+           Parent partCancel = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));
+           Scene scene = new Scene(partCancel);
+           Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+           window.setScene(scene);
+           window.show();
 
        }
        catch (Exception e){
