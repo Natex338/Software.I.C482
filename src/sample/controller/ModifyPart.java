@@ -105,7 +105,6 @@ public class ModifyPart implements Initializable {
                Outsourced part = new Outsourced(partP.getId(), partP.getName(), partP.getPrice(), partP.getStock(), partP.getMin(), partP.getMax(), machineIDCompName.getText());
                System.out.println("Out "+getAllParts().indexOf(partP));
                Inventory.updatePart(getAllParts().indexOf(partP),part);
-
            }
            else if (inHousePart.isSelected())
            {
@@ -122,6 +121,8 @@ public class ModifyPart implements Initializable {
             System.out.println(e.getMessage());
 
         }
+
+        //return to Main screen if valid part is valid
         if (validSave){
             Parent partCancel = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));
             Scene scene = new Scene(partCancel);
