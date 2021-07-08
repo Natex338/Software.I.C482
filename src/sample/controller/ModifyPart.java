@@ -103,13 +103,11 @@ public class ModifyPart implements Initializable {
            else if (partOutsourced.isSelected())
            {
                Outsourced part = new Outsourced(partP.getId(), partP.getName(), partP.getPrice(), partP.getStock(), partP.getMin(), partP.getMax(), machineIDCompName.getText());
-               System.out.println("Out "+getAllParts().indexOf(partP));
                Inventory.updatePart(getAllParts().indexOf(partP),part);
            }
            else if (inHousePart.isSelected())
            {
                InHouse part = new InHouse(partP.getId(), partP.getName(), partP.getPrice(), partP.getStock(), partP.getMin(), partP.getMax(), Integer.parseInt(machineIDCompName.getText()));
-               System.out.println("in "+getAllParts().indexOf(partP));
                Inventory.updatePart(getAllParts().indexOf(partP),part);
            }
             errorMessages.setText(errorMessage);

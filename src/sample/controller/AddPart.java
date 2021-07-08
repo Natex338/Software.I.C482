@@ -14,13 +14,12 @@ import sample.model.Inventory;
 import sample.model.Outsourced;
 import java.io.IOException;
 import java.net.URL;
-
-import java.security.MessageDigest;
 import java.util.ResourceBundle;
 
 public class AddPart implements Initializable {
     public TextField partIDField;
     public RadioButton partOutsourced;
+    public Label errorMessages;
     @FXML
     private RadioButton inHousePart;
     @FXML
@@ -52,35 +51,54 @@ public class AddPart implements Initializable {
     }
     public void onInHouse(ActionEvent actionEvent) {
         machineCompany.setText("Machine ID");
-
     }
     public void onOutsourced(ActionEvent actionEvent) {
-        machineCompany.setText("Company ID");
-
+        machineCompany.setText("Company Name");
     }
     public void onSaveP(ActionEvent actionEvent) throws IOException {
+        String errorMessage = "";
+        boolean validSave = true;
 
-        String pName =partName.getText();
-        int pMin =Integer.parseInt(partMin.getText());
-        int partID= Inventory.partIdCount;
-        int pInv = Integer.parseInt(partInv.getText());
-        int pMax =Integer.parseInt(partMax.getText());
-        Double pPrice = Double.parseDouble(partPrice.getText());
+        try {
+            String pName = partName.getText();
+            int pMin = Integer.parseInt(partMin.getText());
+            int partID = Inventory.partIdCount;
+            int pInv = Integer.parseInt(partInv.getText());
+            int pMax = Integer.parseInt(partMax.getText());
+            Double pPrice = Double.parseDouble(partPrice.getText());
+            errorMessage += Inventory.validatePart(pName, pPrice, pInv, pMin, pMax);
 
-            if (inHousePart.isSelected()) {
-                int machineId = Integer.parseInt(machineIDCompName.getText());
-                InHouse p = new InHouse(partID, pName, pPrice, pInv, pMax, pMin, machineId);
-                Inventory.addPart(p);
-            } else {
-                String companyName = machineIDCompName.getText();
-                Outsourced outPart = new Outsourced(partID, pName, pPrice, pInv, pMin, pMax, companyName);
-                Inventory.addPart(outPart);
+            if (!errorMessage.isEmpty())
+            {
+                validSave = false;
+
+            } else if (partOutsourced.isSelected()) {
+                Outsourced part = new Outsourced(partID, pName, pPrice, pInv, pMin, pMax, machineIDCompName.getText());
+                Inventory.addPart(part);
+            } else if (inHousePart.isSelected()) {
+                InHouse part = new InHouse(partID, pName, pPrice, pInv, pMin, pMax, Integer.parseInt(machineIDCompName.getText()));
+                Inventory.addPart(part);
             }
-
-        Parent backToMain = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));
-        Scene scene = new Scene(backToMain);
-        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
+            else {
+                validSave=false;
+                errorMessage+="Please select InHouse or Outsourced";
+            }
+            errorMessages.setText(errorMessage);
+        }
+        catch (Exception e)
+        {
+            validSave = false;
+            errorMessage += "ERROR: Please correct\n" + e.getMessage().toLowerCase() + "\n to a valid entry for the field.";
+            errorMessages.setText(errorMessage);
+            System.out.println(e.getMessage());
+        }
+        //return to Main screen if valid part is valid
+        if (validSave) {
+            Parent backToMain = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));
+            Scene scene = new Scene(backToMain);
+            Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        }
     }
 }
