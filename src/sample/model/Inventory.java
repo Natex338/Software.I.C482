@@ -9,7 +9,7 @@ public class Inventory {
     public static int partIdCount=0;
     private static final ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static final ObservableList<Product> allProducts = FXCollections.observableArrayList();
-        /**
+    /**
      * Part count increments every part on add call..
      */
     public static void incrementPartId(){
@@ -44,12 +44,32 @@ public class Inventory {
       return null;
   }
 
-    public static String validatePart( String name, double price, int stock, int min, int max, String exceptionMsg) {
-        String message;
+    public static String validatePart( String name, double price, int stock, int min, int max) {
+        String message = "";
+        if(name.isEmpty()){
+            message+="Please Enter Name\n";
+        }
+        if (price<0){
+            message+="Price must be greater than zero\n";
+        }
+        if(stock>max | stock<min) {
+            if (stock > max) {
+                message += "Inventory must be less than Max\n";
+            }
+            if (stock < min) {
+                message += "Inventory must be greater than min\n";
+            }
+            if (max < min) {
+                message += "Max must be more than min\n";
+            }
+            if (min < 0) {
+                message += "Min must be greater than Zero\n";
+            }
+        }
 
 
 
-    return "g";
+    return message;
     }
 
     public static Product lookupProduct(String productName){

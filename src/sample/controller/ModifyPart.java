@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sample.model.InHouse;
 import sample.model.Inventory;
+import static sample.model.Inventory.getAllParts;
 import sample.model.Outsourced;
 import sample.model.Part;
 import java.io.IOException;
@@ -85,32 +86,39 @@ public class ModifyPart implements Initializable {
     }
     public void onSaveP(ActionEvent actionEvent) throws IOException {
         boolean validSave=true;
+        String errorMessage="";
+        System.out.println("Start "+getAllParts().indexOf(partP));
+
         try {
+
            partP.setName(partName.getText());
            partP.setMin(Integer.parseInt(partMin.getText()));
            partP.setMax(Integer.parseInt(partMax.getText()));
            partP.setPrice(Double.parseDouble(partPrice.getText()));
            partP.setStock(Integer.parseInt(partInv.getText()));
-
-
-           if (partOutsourced.isSelected())
+           errorMessage = Inventory.validatePart(partP.getName(), partP.getPrice(),partP.getStock(), partP.getMin(),partP.getMax());
+           if (!errorMessage.isEmpty()){
+               validSave=false;
+           }
+           else if (partOutsourced.isSelected())
            {
                Outsourced part = new Outsourced(partP.getId(), partP.getName(), partP.getPrice(), partP.getStock(), partP.getMin(), partP.getMax(), machineIDCompName.getText());
-               Inventory.addPart(part);
-               Inventory.deletePart(partP);
+               System.out.println("Out "+getAllParts().indexOf(partP));
+               Inventory.updatePart(getAllParts().indexOf(partP),part);
+
            }
-           if (inHousePart.isSelected())
+           else if (inHousePart.isSelected())
            {
                InHouse part = new InHouse(partP.getId(), partP.getName(), partP.getPrice(), partP.getStock(), partP.getMin(), partP.getMax(), Integer.parseInt(machineIDCompName.getText()));
-               Inventory.addPart(part);
-               Inventory.deletePart(partP);
+               System.out.println("in "+getAllParts().indexOf(partP));
+               Inventory.updatePart(getAllParts().indexOf(partP),part);
            }
-
-
+            errorMessages.setText(errorMessage);
         }
         catch (Exception e){
             validSave =false;
-            errorMessages.setText(e.getMessage());
+            errorMessage+="ERROR: Please correct\n"+e.getMessage().toLowerCase() +"\n to a valid entry for the field.";
+            errorMessages.setText(errorMessage);
             System.out.println(e.getMessage());
 
         }
@@ -120,6 +128,8 @@ public class ModifyPart implements Initializable {
             Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             window.setScene(scene);
             window.show();
+            partP=null;
         }
+
     }
 }

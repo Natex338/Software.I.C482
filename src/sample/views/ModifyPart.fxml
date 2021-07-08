@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.ModifyPart">
+<AnchorPane prefHeight="482.0" prefWidth="617.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.ModifyPart">
     <children>
         <Button layoutX="534.0" layoutY="361.0" mnemonicParsing="false" onAction="#backToMain" text="Cancel" />
         <Button fx:id="saveP" layoutX="479.0" layoutY="361.0" mnemonicParsing="false" onAction="#onSaveP" text="Save" />
@@ -48,6 +48,6 @@
         </Label>
         <TextField fx:id="partMin" layoutX="361.0" layoutY="224.0" prefHeight="25.0" prefWidth="119.0" />
         <Label layoutX="330.0" layoutY="228.0" text="Min" />
-      <Label fx:id="errorMessages" layoutX="51.0" layoutY="300.0" prefHeight="89.0" prefWidth="259.0" />
+      <Label fx:id="errorMessages" layoutX="8.0" layoutY="305.0" prefHeight="168.0" prefWidth="437.0" />
     </children>
 </AnchorPane>
