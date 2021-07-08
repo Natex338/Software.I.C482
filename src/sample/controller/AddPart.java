@@ -1,5 +1,4 @@
 package sample.controller;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +13,7 @@ import sample.model.Inventory;
 import sample.model.Outsourced;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class AddPart implements Initializable {
@@ -42,7 +42,7 @@ public class AddPart implements Initializable {
         Inventory.incrementPartId();
     }
     public void toMain(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/sample/views/Main.fxml")));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setTitle("Inventory Management System");
@@ -58,20 +58,18 @@ public class AddPart implements Initializable {
     public void onSaveP(ActionEvent actionEvent) throws IOException {
         String errorMessage = "";
         boolean validSave = true;
-
         try {
             String pName = partName.getText();
             int pMin = Integer.parseInt(partMin.getText());
             int partID = Inventory.partIdCount;
             int pInv = Integer.parseInt(partInv.getText());
             int pMax = Integer.parseInt(partMax.getText());
-            Double pPrice = Double.parseDouble(partPrice.getText());
+            double pPrice = Double.parseDouble(partPrice.getText());
             errorMessage += Inventory.validatePart(pName, pPrice, pInv, pMin, pMax);
 
             if (!errorMessage.isEmpty())
             {
                 validSave = false;
-
             } else if (partOutsourced.isSelected()) {
                 Outsourced part = new Outsourced(partID, pName, pPrice, pInv, pMin, pMax, machineIDCompName.getText());
                 Inventory.addPart(part);
@@ -79,7 +77,8 @@ public class AddPart implements Initializable {
                 InHouse part = new InHouse(partID, pName, pPrice, pInv, pMin, pMax, Integer.parseInt(machineIDCompName.getText()));
                 Inventory.addPart(part);
             }
-            else {
+            else
+            {
                 validSave=false;
                 errorMessage+="Please select InHouse or Outsourced";
             }
@@ -94,7 +93,7 @@ public class AddPart implements Initializable {
         }
         //return to Main screen if valid part is valid
         if (validSave) {
-            Parent backToMain = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));
+            Parent backToMain = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/sample/views/Main.fxml")));
             Scene scene = new Scene(backToMain);
             Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             window.setScene(scene);
