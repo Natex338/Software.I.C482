@@ -26,9 +26,9 @@ public class AddProduct implements Initializable {
     @FXML
     private TableView <Part>allPartsView;
     @FXML
-    private TableView <Part>allProdParts;
+    private TableView <Part>allProductsPartsView;
     @FXML
-    private TableColumn<Part,int> partIdCol;
+    private TableColumn<Part, Integer> partIdCol;
     @FXML
     private TableColumn<Part,String> partNameCol;
     @FXML
@@ -119,8 +119,8 @@ public class AddProduct implements Initializable {
     }
 
     public void onClickProdPartAdd(ActionEvent actionEvent) {
-        partsName.add(allPartsView.getSelectionModel().getSelectedItem());
-        allProdParts.setItems(partsName);
-        allProductsView.setItems(partsName);
+        Part p = allPartsView.getSelectionModel().getSelectedItem();
+        partsName.add(p);
+        allProductsPartsView.setItems(partsName);
     }
 }
