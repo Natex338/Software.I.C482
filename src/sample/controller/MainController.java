@@ -128,7 +128,6 @@ public class MainController implements Initializable {
         }
         if(!parts.isEmpty())
         allPartsView.setItems(parts);
-
     }
     private ObservableList<Part>searchByPartName(String partialName){
         ObservableList<Part> partsName = FXCollections.observableArrayList();
@@ -143,7 +142,6 @@ public class MainController implements Initializable {
     }
     private Part getPartByID(int pID){
         ObservableList<Part> allParts = Inventory.getAllParts();
-
         for (Part p:allParts){
             if (p.getId()== pID){
                 return p;
@@ -233,7 +231,7 @@ public class MainController implements Initializable {
         stage.show();
     }
 
-    public void onClickModifyProd(ActionEvent actionEvent) throws IOException {
+    public void onClickAddProd(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/sample/views/AddProduct.fxml")));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);

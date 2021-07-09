@@ -3,48 +3,59 @@ package sample.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import sample.model.Inventory;
 import sample.model.Part;
-import sample.model.Product;
-
+import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import static sample.model.Inventory.getAllParts;
-import static sample.model.Inventory.getAllProducts;
 
 public class AddProduct implements Initializable {
 
 
-    public TableView allPartsView;
-    public TableColumn partIdCol;
-    public TableColumn partNameCol;
-    public TableColumn partInventory;
-    public TableColumn partPrice;
-    public TableView allProductsView;
-    public TableColumn prodId;
-    public TableColumn prodName;
-    public TableColumn prodInventory;
-    public TableColumn prodPrice;
-    public TextField partsTextField;
+    @FXML
+    private TableView <Part>allPartsView;
+    @FXML
+    private TableView <Part>allProdParts;
+    @FXML
+    private TableColumn<Part,int> partIdCol;
+    @FXML
+    private TableColumn<Part,String> partNameCol;
+    @FXML
+    private TableColumn<Part,Integer> partInventory;
+    @FXML
+    private TableColumn<Part,Integer> partPrice;
+    @FXML
+    private TableView<Part> allProductsView;
+    public TableColumn<Part,Integer> prodPartId;
+    public TableColumn prodPartName;
+    public TableColumn <Part,Integer>prodPartInventory;
+    public TableColumn<Part,Integer> prodPartPrice;
+    public TableColumn<Part,Integer> partsTextField;
+    private final ObservableList<Part> partsName = FXCollections.observableArrayList();
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         allPartsView.setItems(getAllParts());
-        allProductsView.setItems(getAllProducts());
         partIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         partNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         partInventory.setCellValueFactory(new PropertyValueFactory<>("stock"));
         partPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        prodId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        prodName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        prodInventory.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        prodPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        prodPartId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        prodPartName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        prodPartInventory.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        prodPartPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 
 
@@ -97,5 +108,19 @@ public class AddProduct implements Initializable {
             }
         }
         return partsName;
+    }
+    public void backToMain(ActionEvent actionEvent) throws IOException {
+
+        Parent partCancel = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));
+        Scene scene = new Scene(partCancel);
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+    }
+
+    public void onClickProdPartAdd(ActionEvent actionEvent) {
+        partsName.add(allPartsView.getSelectionModel().getSelectedItem());
+        allProdParts.setItems(partsName);
+        allProductsView.setItems(partsName);
     }
 }

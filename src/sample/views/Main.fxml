@@ -108,7 +108,7 @@
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#onClickModifyProd" text="Add" />
+                        <Button mnemonicParsing="false" onAction="#onClickAddProd" text="Add" />
                         <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" text="Modify" />
                         <Button fx:id="removeProd" mnemonicParsing="false" onAction="#onRemoveProd" text="Delete" />
                      </children>
