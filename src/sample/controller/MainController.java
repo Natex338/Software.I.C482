@@ -232,4 +232,13 @@ public class MainController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    public void onClickModifyProd(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/sample/views/AddProduct.fxml")));
+        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setTitle("Add Product");
+        stage.setScene(scene);
+        stage.show();
+    }
 }

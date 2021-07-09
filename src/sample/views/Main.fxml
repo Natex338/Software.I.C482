@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="433.0" prefWidth="1014.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.MainController">
+<AnchorPane prefHeight="433.0" prefWidth="1014.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.MainController">
    <children>
       <GridPane layoutX="-4.0" layoutY="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="446.0" prefWidth="1014.0">
         <columnConstraints>
@@ -108,7 +108,7 @@
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Add" />
+                        <Button mnemonicParsing="false" onAction="#onClickModifyProd" text="Add" />
                         <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" text="Modify" />
                         <Button fx:id="removeProd" mnemonicParsing="false" onAction="#onRemoveProd" text="Delete" />
                      </children>
