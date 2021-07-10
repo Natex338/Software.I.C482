@@ -12,17 +12,35 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import sample.model.Inventory;
-import sample.model.Part;
+import sample.model.*;
+
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import static sample.model.Inventory.getAllParts;
+
+import static sample.model.Inventory.*;
 
 public class AddProduct implements Initializable {
 
-
+    public Label ProdErrorMsg;
+    @FXML
+    private TextField productPartID;
+    @FXML
+    private TextField productPartName;
+    @FXML
+    private TextField prodPartInv;
+    @FXML
+    private TextField productIDField;
+    @FXML
+    private TextField productNameField;
+    @FXML
+    private TextField prodInvField;
+    @FXML
+    private TextField prodPriceField;
+    @FXML
+    private TextField prodMaxField;
     @FXML
     private TableView <Part>allPartsView;
     @FXML
@@ -36,7 +54,6 @@ public class AddProduct implements Initializable {
     @FXML
     private TableColumn<Part,Integer> partPrice;
     @FXML
-    private TableView<Part> allProductsView;
     public TableColumn<Part,Integer> prodPartId;
     public TableColumn prodPartName;
     public TableColumn <Part,Integer>prodPartInventory;
@@ -57,8 +74,6 @@ public class AddProduct implements Initializable {
         prodPartInventory.setCellValueFactory(new PropertyValueFactory<>("stock"));
         prodPartPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
-
-
     private Part getPartByID(int pID){
         ObservableList<Part> allParts = Inventory.getAllParts();
 
@@ -110,17 +125,60 @@ public class AddProduct implements Initializable {
         return partsName;
     }
     public void backToMain(ActionEvent actionEvent) throws IOException {
-
         Parent partCancel = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));
         Scene scene = new Scene(partCancel);
         Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
     }
-
     public void onClickProdPartAdd(ActionEvent actionEvent) {
         Part p = allPartsView.getSelectionModel().getSelectedItem();
         partsName.add(p);
         allProductsPartsView.setItems(partsName);
+    }
+
+    public void onSaveProduct(ActionEvent actionEvent) throws IOException {
+        String ProdErrorMessage = "";
+        boolean validSave = true;
+        try {
+            String prodName = productPartName.getText();
+            int prodMin = Integer.parseInt(prodInvField.getText());
+            int prodID = Inventory.partIdCount;
+            int prodInv = Integer.parseInt(prodInvField.getText());
+            int prodMax = Integer.parseInt(prodMaxField.getText());
+            double prodPrice = Double.parseDouble(prodPriceField.getText());
+            ProdErrorMessage += Inventory.validatePart(prodName, prodPrice, prodInv, prodMin, prodMax);
+
+            if (!ProdErrorMessage.isEmpty()) {
+                validSave = false;
+            }
+            else {
+                Product p =new Product(partIdCount,prodName,prodPrice,prodInv,prodMin,prodMax);
+                for (Part pp:partsName){
+                    p.addAssociatedPart(pp);
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            validSave = false;
+            ProdErrorMessage += "ERROR: Please correct\n" + e.getMessage().toLowerCase() + "\n to a valid entry for the field.";
+            ProdErrorMsg.setText(ProdErrorMessage);
+            System.out.println(e.getMessage());
+        }
+        //return to Main screen if valid part is valid
+        if (validSave) {
+            Parent backToMain = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/sample/views/Main.fxml")));
+            Scene scene = new Scene(backToMain);
+            Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        }
+    }
+    public void OnRemoveAssociatedPart(ActionEvent actionEvent) {
+        Part SP = allProductsPartsView.getSelectionModel().getSelectedItem();
+        if(SP == null)
+            return;
+        partsName.remove(SP);
     }
 }
