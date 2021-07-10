@@ -60,10 +60,12 @@ public class AddProduct implements Initializable {
     public TableColumn<Part,Integer> prodPartPrice;
     public TableColumn<Part,Integer> partsTextField;
     private final ObservableList<Part> partsName = FXCollections.observableArrayList();
+    private String ProdErrorMessage = "";
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Inventory.incrementPartId();
         allPartsView.setItems(getAllParts());
         partIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         partNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -138,7 +140,7 @@ public class AddProduct implements Initializable {
     }
 
     public void onSaveProduct(ActionEvent actionEvent) throws IOException {
-        String ProdErrorMessage = "";
+
         boolean validSave = true;
         try {
             String prodName = productPartName.getText();
@@ -149,15 +151,17 @@ public class AddProduct implements Initializable {
             double prodPrice = Double.parseDouble(prodPriceField.getText());
             ProdErrorMessage += Inventory.validatePart(prodName, prodPrice, prodInv, prodMin, prodMax);
 
-            if (!ProdErrorMessage.isEmpty()) {
-                validSave = false;
-            }
-            else {
-                Product p =new Product(partIdCount,prodName,prodPrice,prodInv,prodMin,prodMax);
+            if (ProdErrorMessage.isEmpty()) {
+                Product p =new Product(prodID,prodName,prodPrice,prodInv,prodMin,prodMax);
                 for (Part pp:partsName){
                     p.addAssociatedPart(pp);
                 }
                 addProduct(p);
+            }
+            else {
+                validSave = false;
+                ProdErrorMsg.setText(ProdErrorMessage);
+                return;
             }
 
         }
