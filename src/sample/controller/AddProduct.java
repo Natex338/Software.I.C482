@@ -140,8 +140,10 @@ public class AddProduct implements Initializable {
     }
 
     public void onSaveProduct(ActionEvent actionEvent) throws IOException {
-
+        System.out.println("STILL BROKEN LOGIC>>> NEED TO FIX");
+        String ProdErrorMessage="";
         boolean validSave = true;
+
         try {
             String prodName = productPartName.getText();
             int prodMin = Integer.parseInt(prodInvField.getText());
@@ -149,27 +151,28 @@ public class AddProduct implements Initializable {
             int prodInv = Integer.parseInt(prodInvField.getText());
             int prodMax = Integer.parseInt(prodMaxField.getText());
             double prodPrice = Double.parseDouble(prodPriceField.getText());
+
             ProdErrorMessage += Inventory.validatePart(prodName, prodPrice, prodInv, prodMin, prodMax);
 
-            if (ProdErrorMessage.isEmpty()) {
+            if (!ProdErrorMessage.isEmpty()) {
+                validSave = false;
+                ProdErrorMsg.setText(ProdErrorMessage+"\n");
+
+            }
+            else {
                 Product p =new Product(prodID,prodName,prodPrice,prodInv,prodMin,prodMax);
                 for (Part pp:partsName){
                     p.addAssociatedPart(pp);
                 }
                 addProduct(p);
             }
-            else {
-                validSave = false;
-                ProdErrorMsg.setText(ProdErrorMessage);
-                return;
-            }
 
         }
         catch (Exception e)
         {
             validSave = false;
-            ProdErrorMessage += "ERROR: Please correct\n" + e.getMessage().toLowerCase() + "\n to a valid entry for the field.";
-            ProdErrorMsg.setText(ProdErrorMessage);
+            ProdErrorMessage += "ERROR: Please correct\n" + e.getMessage().toLowerCase() + "\n to a valid entry for the field.\n";
+            ProdErrorMsg.setText(ProdErrorMessage+"\n");
             System.out.println(e.getMessage());
         }
         //return to Main screen if valid part is valid

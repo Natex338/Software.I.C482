@@ -52,19 +52,17 @@ public class Inventory {
         if (price<0){
             message+="Price must be greater than zero\n";
         }
-        if(stock>max | stock<min) {
-            if (stock > max) {
-                message += "Inventory must be less than Max\n";
+        if (stock > max) {
+            message += "Inventory must be less than Max\n";
             }
-            if (stock < min) {
-                message += "Inventory must be greater than min\n";
-            }
-            if (min < max) {
-                message += "Max must be more than min\n";
-            }
-            if (min < 0) {
-                message += "Min must be greater than Zero\n";
-            }
+        if (stock < min) {
+            message += "Inventory must be greater than min\n";
+        }
+        if (max < min) {
+            message += "Max must be greater than min\n";
+        }
+        if (min < 0) {
+            message += "Min must be greater than Zero\n";
         }
 
 
