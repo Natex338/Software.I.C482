@@ -53,6 +53,7 @@ public class MainController implements Initializable {
     private TableColumn<Product, Integer>  prodPrice;
 
     public static Part partP = null;
+    public static Product productP=null;
 
 
 
@@ -236,6 +237,24 @@ public class MainController implements Initializable {
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setTitle("Add Product");
+        stage.setScene(scene);
+        stage.show();
+    }
+    public void onModifyProduct(ActionEvent actionEvent) throws IOException {
+
+        if (allProductsView.getSelectionModel().isEmpty()) {
+            Alert nothingSelected = new Alert(Alert.AlertType.WARNING);
+            nothingSelected.setTitle("Nothing Selected");
+            nothingSelected.setHeaderText("Please Select a product");
+            nothingSelected.setContentText("You must select a product to modify it");
+            nothingSelected.showAndWait();
+            return;
+        }
+        productP = allProductsView.getSelectionModel().getSelectedItem();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/sample/views/ModifyProduct.fxml")));
+        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setTitle("Modify Product");
         stage.setScene(scene);
         stage.show();
     }
