@@ -31,6 +31,7 @@ public class MainController implements Initializable {
     public TextField prodTextField;
     public TextField partsTextField;
     public Button exit;
+    public Button modifyProd;
     @FXML
     private TableView<Part> allPartsView;
     @FXML
@@ -53,7 +54,7 @@ public class MainController implements Initializable {
     private TableColumn<Product, Integer>  prodPrice;
 
     public static Part partP = null;
-    public static Product productP=null;
+    public static Product  productP=null;
 
 
 
@@ -72,12 +73,9 @@ public class MainController implements Initializable {
         prodPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
 
     }
-
     public static Part partPass(){
-
         return partP;
     }
-
     public void onRemovePart(ActionEvent actionEvent) {
 
             Alert removePartAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -250,12 +248,14 @@ public class MainController implements Initializable {
             nothingSelected.showAndWait();
             return;
         }
-        productP = allProductsView.getSelectionModel().getSelectedItem();
+        System.out.println(allProductsView.getSelectionModel().getSelectedItem().getName());
+        Product productP = allProductsView.getSelectionModel().getSelectedItem();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/sample/views/ModifyProduct.fxml")));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        stage.setTitle("Modify Product");
+        stage.setTitle("Add Product");
         stage.setScene(scene);
         stage.show();
+
     }
 }
