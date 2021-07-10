@@ -157,7 +157,9 @@ public class AddProduct implements Initializable {
                 for (Part pp:partsName){
                     p.addAssociatedPart(pp);
                 }
+                addProduct(p);
             }
+
         }
         catch (Exception e)
         {
