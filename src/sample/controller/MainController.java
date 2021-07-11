@@ -54,7 +54,7 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<Product, Integer>  prodPrice;
 
-    //public object passed to diffrent screens
+    //public object passed to different screens
     public static Part partP = null;
     public static Product  productP=null;
 
@@ -277,7 +277,7 @@ public class MainController implements Initializable {
      *Search all products that have specific associated parts in the product.
      * Example search brakes on the product screen and show all products with brakes
      *
-     * current fuction
+     * current function
      * @param partialName searches prod list for partial name match
      * @return returns parts found with partial match
      */
