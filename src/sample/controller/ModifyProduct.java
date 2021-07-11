@@ -22,16 +22,16 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static sample.model.Inventory.addProduct;
-import static sample.model.Inventory.getAllParts;
+import static sample.model.Inventory.*;
 
 public class ModifyProduct implements Initializable {
 
     public Label ProdErrorMsg;
+    public TextField prodMinField;
     @FXML
     private TextField productPartID;
     @FXML
-    private TextField productPartName;
+    private TextField productPartNameField;
     @FXML
     private TextField prodPartInv;
     @FXML
@@ -64,12 +64,23 @@ public class ModifyProduct implements Initializable {
     public TableColumn<Part,Integer> partsTextField;
     private final ObservableList<Part> partsName = FXCollections.observableArrayList();
     private String ProdErrorMessage = "";
+    public static Product prodPass;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Inventory.incrementPartId();
+        prodPass=MainController.prodPass();
         allPartsView.setItems(getAllParts());
+        allProductsPartsView.setItems(prodPass.getAllAssociatedParts());
+        allProductsPartsView.setItems(prodPass.getAllAssociatedParts());
+        productPartNameField.setText(prodPass.getName());
+        prodPriceField.setText(String.valueOf(prodPass.getPrice()));
+        prodInvField.setText(String.valueOf(prodPass.getStock()));
+        prodMaxField.setText(String.valueOf(prodPass.getMax()));
+        prodMinField.setText(String.valueOf(prodPass.getMin()));
+
+
+
         partIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         partNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         partInventory.setCellValueFactory(new PropertyValueFactory<>("stock"));
@@ -81,7 +92,6 @@ public class ModifyProduct implements Initializable {
     }
     private Part getPartByID(int pID){
         ObservableList<Part> allParts = Inventory.getAllParts();
-
         for (Part p:allParts){
             if (p.getId()== pID){
                 return p;
@@ -118,10 +128,9 @@ public class ModifyProduct implements Initializable {
             allPartsView.setItems(parts);
 
     }
-    private ObservableList<Part>searchByPartName(String partialName){
+    private ObservableList<Part>searchByPartName(String partialName) {
         ObservableList<Part> partsName = FXCollections.observableArrayList();
         ObservableList<Part> allParts = Inventory.getAllParts();
-
         for(Part p:allParts){
             if ((p.getName()).toLowerCase().contains((partialName).toLowerCase())){
                 partsName.add(p);
@@ -138,36 +147,23 @@ public class ModifyProduct implements Initializable {
     }
     public void onClickProdPartAdd(ActionEvent actionEvent) {
         Part p = allPartsView.getSelectionModel().getSelectedItem();
-        partsName.add(p);
-        allProductsPartsView.setItems(partsName);
+        if(p!=null)
+        prodPass.addAssociatedPart(p);
+        allProductsPartsView.setItems(prodPass.getAllAssociatedParts());
     }
-
     public void onSaveProduct(ActionEvent actionEvent) throws IOException {
         System.out.println("STILL BROKEN LOGIC>>> NEED TO FIX");
         String ProdErrorMessage="";
         boolean validSave = true;
 
         try {
-            String prodName = productPartName.getText();
-            int prodMin = Integer.parseInt(prodInvField.getText());
-            int prodID = Inventory.partIdCount;
-            int prodInv = Integer.parseInt(prodInvField.getText());
-            int prodMax = Integer.parseInt(prodMaxField.getText());
-            double prodPrice = Double.parseDouble(prodPriceField.getText());
-
-            ProdErrorMessage += Inventory.validatePart(prodName, prodPrice, prodInv, prodMin, prodMax);
-
+            ProdErrorMessage += Inventory.validatePart(productPartNameField.getText(), Double.parseDouble(prodPriceField.getText()), Integer.parseInt(prodInvField.getText()), Integer.parseInt(prodInvField.getText()), Integer.parseInt(prodMaxField.getText()));
             if (!ProdErrorMessage.isEmpty()) {
                 validSave = false;
                 ProdErrorMsg.setText(ProdErrorMessage+"\n");
-
             }
             else {
-                Product p =new Product(prodID,prodName,prodPrice,prodInv,prodMin,prodMax);
-                for (Part pp:partsName){
-                    p.addAssociatedPart(pp);
-                }
-                addProduct(p);
+                Inventory.updateProduct(getAllProducts().indexOf(prodPass),prodPass);
             }
 
         }
@@ -191,6 +187,6 @@ public class ModifyProduct implements Initializable {
         Part SP = allProductsPartsView.getSelectionModel().getSelectedItem();
         if(SP == null)
             return;
-        partsName.remove(SP);
+        prodPass.deleteAssociatedPart(SP);
     }
 }

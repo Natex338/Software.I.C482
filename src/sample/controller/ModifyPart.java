@@ -18,6 +18,7 @@ import sample.model.Outsourced;
 import sample.model.Part;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ModifyPart implements Initializable {
@@ -41,7 +42,6 @@ public class ModifyPart implements Initializable {
     private Label machineCompany;
     @FXML
     private TextField partMin;
-
     private static Part partP= null;
 
 
@@ -70,7 +70,7 @@ public class ModifyPart implements Initializable {
     }
     public void backToMain(ActionEvent actionEvent) throws IOException {
 
-        Parent partCancel = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));
+        Parent partCancel = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/sample/views/Main.fxml")));
         Scene scene = new Scene(partCancel);
         Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene(scene);
@@ -123,7 +123,7 @@ public class ModifyPart implements Initializable {
 
         //return to Main screen if valid part is valid
         if (validSave){
-            Parent partCancel = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));
+            Parent partCancel = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/sample/views/Main.fxml")));
             Scene scene = new Scene(partCancel);
             Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             window.setScene(scene);

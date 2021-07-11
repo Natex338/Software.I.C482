@@ -18,6 +18,7 @@ import sample.model.Product;
 import java.io.IOException;
 import java.net.URL;
 import java.security.AllPermission;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -55,6 +56,7 @@ public class MainController implements Initializable {
 
     public static Part partP = null;
     public static Product  productP=null;
+    private Part partCheck = null;
 
 
 
@@ -76,6 +78,9 @@ public class MainController implements Initializable {
     public static Part partPass(){
         return partP;
     }
+    public static Product prodPass(){
+        return productP;
+    }
     public void onRemovePart(ActionEvent actionEvent) {
 
             Alert removePartAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -88,6 +93,7 @@ public class MainController implements Initializable {
                 if (SP == null)
                     return;
                 getAllParts().remove(SP);
+                Inventory.deletePart(SP);
 
         }
     }
@@ -96,6 +102,7 @@ public class MainController implements Initializable {
         if(SP == null)
             return;
         getAllProducts().remove(SP);
+        Inventory.deleteProduct(SP);
     }
     public void onclickAddPart(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/sample/views/AddPart.fxml"));
@@ -131,7 +138,6 @@ public class MainController implements Initializable {
     private ObservableList<Part>searchByPartName(String partialName){
         ObservableList<Part> partsName = FXCollections.observableArrayList();
         ObservableList<Part> allParts = Inventory.getAllParts();
-
         for(Part p:allParts){
             if ((p.getName()).toLowerCase().contains((partialName).toLowerCase())){
                 partsName.add(p);
@@ -139,23 +145,22 @@ public class MainController implements Initializable {
         }
         return partsName;
     }
-    private Part getPartByID(int pID){
-        ObservableList<Part> allParts = Inventory.getAllParts();
-        for (Part p:allParts){
-            if (p.getId()== pID){
-                return p;
-            }
+    private Part getPartByID(int pID) {
+        Part p = lookupPart(pID);
+        if (p == null) {
+            Alert noProduct = new Alert(Alert.AlertType.WARNING);
+            noProduct.setTitle("No Part Found!");
+            noProduct.setHeaderText("No Part Found!");
+            noProduct.setContentText("No part with the ID: " + pID + " found!");
+            Optional<ButtonType> result = noProduct.showAndWait();
+            return null;
         }
-        Alert noProduct =new Alert(Alert.AlertType.WARNING);
-        noProduct.setTitle("No Part Found!");
-        noProduct.setHeaderText("No Part Found!");
-        noProduct.setContentText("No part with the ID: "+pID+" found!");
-        Optional<ButtonType> result = noProduct.showAndWait();
-       return null;
+        return p;
     }
     public void getResultsProdHandler(ActionEvent actionEvent) {
         String q = prodTextField.getText();
         ObservableList<Product> prod=searchByProdName(q);
+
         if(prod.size()==0){
             try {
                 int prodId = Integer.parseInt(q);
@@ -173,35 +178,39 @@ public class MainController implements Initializable {
             }
         }
         if(!prod.isEmpty())
-
             allProductsView.setItems(prod);
 
     }
     private Product getProdByID(int pID){
-        ObservableList<Product> allProd = Inventory.getAllProducts();
-
-        for (Product p:allProd){
-            if (p.getId()== pID){
-                return p;
-            }
+        Product p = lookupProduct(pID);
+        if (p == null) {
+            Alert noProduct = new Alert(Alert.AlertType.WARNING);
+            noProduct.setTitle("No Product Found!");
+            noProduct.setHeaderText("No Product Found!");
+            noProduct.setContentText("No Product with the ID: " + pID + " found!");
+            Optional<ButtonType> result = noProduct.showAndWait();
+            return null;
         }
-        Alert noProduct =new Alert(Alert.AlertType.WARNING);
-        noProduct.setTitle("No Part Found!");
-        noProduct.setHeaderText("No Part Found!");
-        noProduct.setContentText("No product with the ID: "+pID+" found!");
-        Optional<ButtonType> result = noProduct.showAndWait();
-        return null;
+        return p;
     }
     private ObservableList<Product>searchByProdName(String partialName){
         ObservableList<Product> prodName = FXCollections.observableArrayList();
-        ObservableList<Product> allProd = Inventory.getAllProducts();
+        int i=0;
+        while(i<allProductsView.getItems().size()){
+            if (lookupProduct(partialName))
 
+        i++;
+        }
+        return prodName;
+    /*
+        ObservableList<Product> allProd = Inventory.getAllProducts();
         for(Product p:allProd){
             if ((p.getName()).toLowerCase().contains((partialName).toLowerCase())){
                 prodName.add(p);
             }
         }
-        return prodName;
+
+     */
     }
     public void onExit(ActionEvent actionEvent) {
         Alert exitAlert= new Alert(Alert.AlertType.CONFIRMATION);
@@ -229,7 +238,6 @@ public class MainController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
     public void onClickAddProd(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/sample/views/AddProduct.fxml")));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
@@ -249,7 +257,7 @@ public class MainController implements Initializable {
             return;
         }
         System.out.println(allProductsView.getSelectionModel().getSelectedItem().getName());
-        Product productP = allProductsView.getSelectionModel().getSelectedItem();
+        productP = allProductsView.getSelectionModel().getSelectedItem();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/sample/views/ModifyProduct.fxml")));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);

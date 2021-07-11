@@ -71,9 +71,9 @@ public class Inventory {
     }
 
     public static Product lookupProduct(String productName){
-      for(Product p : allProducts)
+        for(Product p : allProducts)
         {
-            if (p.getName() == productName)
+            if (p.getName().contains(productName))
                 return p;
         }
       return null;
@@ -87,7 +87,7 @@ public class Inventory {
   }
     public static Part lookupPart(String partName){
       for(Part p : allParts){
-            if(p.getName() == partName)
+            if(p.getName().contains(partName))
                 return p;
         }
       return null;
