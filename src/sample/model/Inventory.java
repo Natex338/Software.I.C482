@@ -20,6 +20,7 @@ public class Inventory {
     public static void incrementPartId(){
        partIdCount++;
     }
+
     /**
      * @param newParts adding part to part list
      */
@@ -28,6 +29,7 @@ public class Inventory {
         allParts.add(newParts);
     }
   }
+
     /**
      * @param product Adding product to the product list
      */
@@ -36,6 +38,7 @@ public class Inventory {
         allProducts.add(product);
     }
   }
+
     /**
      * @param productId looking up product part
      * @return Return part with ID
@@ -48,6 +51,7 @@ public class Inventory {
     }
       return null;
   }
+
     /**
      * Validate Part or Prodcut values
      * @param name Name of the product or part cannot be null
@@ -62,26 +66,24 @@ public class Inventory {
         if(name.isEmpty()){
             message+="Please Enter Name\n";
         }
-        if (price<0){
+        if (price<=0){
             message+="Price must be greater than zero\n";
         }
-        if (stock > max) {
-            message += "Inventory must be less than Max\n";
+        if (stock < min ||stock > max) {
+            message += "Inventory must be less than Max and greater than Min\n";
             }
-        if (stock < min) {
-            message += "Inventory must be greater than min\n";
-        }
         if (max < min) {
             message += "Max must be greater than min\n";
         }
         if (min < 0) {
             message += "Min must be greater than Zero\n";
         }
-
-
-
+        if (stock<1){
+            message += "Inventory must be greater than zero\n";
+        }
     return message;
     }
+
     /** look up product by name
      * @param productName product name being searched
      * @return return the product with the same name else null
@@ -94,6 +96,7 @@ public class Inventory {
         }
       return null;
   }
+
     /**
      * Look up part by ID
      * @param partId  Part ID being searched
@@ -106,6 +109,7 @@ public class Inventory {
       }
       return null;
   }
+
     /**
      * @param partName look up specific part by name
      * @return return part with the same name
@@ -118,6 +122,7 @@ public class Inventory {
       return null;
 
   }
+
     /**
      * @param index of the part that will be updated
      * @param selectedPart the part that will be updated.
@@ -125,6 +130,7 @@ public class Inventory {
     public static void updatePart(int index, Part selectedPart){
       allParts.set(index, selectedPart);
   }
+
     /**
      * @param index index of part that needs to be update
      * @param selectedProd update part at index in all products array.
@@ -132,6 +138,7 @@ public class Inventory {
     public static void updateProduct(int index, Product selectedProd){
      allProducts.set(index, selectedProd);
   }
+
     /**
      * @param deletedPart delete selected part
      * @return return true if part is deleted false if not
@@ -145,6 +152,7 @@ public class Inventory {
       }
       return false;
   }
+
     /**
      * @param deletedProd deleted product selected
      * @return true or false depending on deletion
@@ -158,12 +166,14 @@ public class Inventory {
         }
         return false;
     }
+
     /**
      * @return All parts from the all parts Observable list
      */
     public static ObservableList<Part> getAllParts(){
         return allParts;
     }
+
     /**
      * get all products form the the Observable list
      * @return all products in product list

@@ -28,16 +28,9 @@ public class ModifyProduct implements Initializable {
 
     public Label ProdErrorMsg;
     public TextField prodMinField;
-    @FXML
-    private TextField productPartID;
+    public TextField searchPartProd;
     @FXML
     private TextField productPartNameField;
-    @FXML
-    private TextField prodPartInv;
-    @FXML
-    private TextField productIDField;
-    @FXML
-    private TextField productNameField;
     @FXML
     private TextField prodInvField;
     @FXML
@@ -121,7 +114,7 @@ public class ModifyProduct implements Initializable {
      * @param actionEvent search for parts handler
      */
     public void getResultsPartHandler(ActionEvent actionEvent){
-        String q = partsTextField.getText();
+        String q = searchPartProd.getText();
         ObservableList<Part> parts=searchByPartName(q);
         if(parts.size()==0){
             try {
@@ -142,6 +135,7 @@ public class ModifyProduct implements Initializable {
         }
         if(!parts.isEmpty())
             allPartsView.setItems(parts);
+            allPartsView.getSelectionModel().selectFirst();
 
     }
 
@@ -187,10 +181,8 @@ public class ModifyProduct implements Initializable {
      * @throws IOException hanles invalid input like not a number invalid entry
      */
     public void onSaveProduct(ActionEvent actionEvent) throws IOException {
-        System.out.println("STILL BROKEN LOGIC>>> NEED TO FIX");
         String ProdErrorMessage="";
         boolean validSave = true;
-
         try {
             ProdErrorMessage += Inventory.validatePart(productPartNameField.getText(), Double.parseDouble(prodPriceField.getText()), Integer.parseInt(prodInvField.getText()), Integer.parseInt(prodInvField.getText()), Integer.parseInt(prodMaxField.getText()));
             if (!ProdErrorMessage.isEmpty()) {
@@ -223,9 +215,16 @@ public class ModifyProduct implements Initializable {
      * @param actionEvent remove associated part from product
      */
     public void OnRemoveAssociatedPart(ActionEvent actionEvent) {
-        Part SP = allProductsPartsView.getSelectionModel().getSelectedItem();
-        if(SP == null)
-            return;
-        prodPass.deleteAssociatedPart(SP);
+        Alert removePartAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        removePartAlert.setTitle("Deleting associated Part!");
+        removePartAlert.setHeaderText("Part will be removed!");
+        removePartAlert.setContentText("Are you sure you want to delete this part?");
+        Optional<ButtonType> result = removePartAlert.showAndWait();
+        if(result.get() == ButtonType.OK) {
+            Part SP = allProductsPartsView.getSelectionModel().getSelectedItem();
+            if (SP == null)
+                return;
+            prodPass.deleteAssociatedPart(SP);
+        }
     }
 }

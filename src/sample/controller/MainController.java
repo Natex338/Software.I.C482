@@ -108,7 +108,7 @@ public class MainController implements Initializable {
                 return;
             if (!deletePart(SP)) {
                 Alert deletionError = new Alert(Alert.AlertType.WARNING);
-                deletionError.setTitle("Deleting Part Er");
+                deletionError.setTitle("Deleting Part Error");
                 deletionError.setContentText("Error");
                 deletionError.showAndWait();
                 return;
@@ -123,19 +123,34 @@ public class MainController implements Initializable {
      * @param actionEvent remove products, presents error if associated parts are still attached.
      */
     public void onRemoveProd(ActionEvent actionEvent) {
-        Product SP = allProductsView.getSelectionModel().getSelectedItem();
-        if(SP == null)
-            return;
-        if(!deleteProduct(SP)){
-            Alert deletionError = new Alert(Alert.AlertType.WARNING);
-            deletionError.setTitle("Deleting Product");
-            deletionError.setContentText("Error");
-            deletionError.showAndWait();
-            return;
+        Alert removePartAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        removePartAlert.setTitle("Deleting Product!");
+        removePartAlert.setHeaderText("Product will be removed!");
+        removePartAlert.setContentText("Are you sure you want to delete this Product?");
+        Optional<ButtonType> result = removePartAlert.showAndWait();
+        if(result.get() == ButtonType.OK) {
+            Product SP = allProductsView.getSelectionModel().getSelectedItem();
+            if (SP == null)
+                return;
+            if (SP.getAllAssociatedParts().isEmpty()) {
+                if (!deleteProduct(SP)) {
+                    Alert deletionError = new Alert(Alert.AlertType.WARNING);
+                    deletionError.setTitle("Deleting Product");
+                    deletionError.setContentText("Error");
+                    deletionError.showAndWait();
+                    return;
+                    }
+                else
+                    getAllProducts().remove(SP);
+            }
+            else {
+                Alert deletionError = new Alert(Alert.AlertType.WARNING);
+                deletionError.setTitle("Cannot Delete Product");
+                deletionError.setHeaderText("Product still has associated parts");
+                deletionError.setContentText("Product still has associated parts, remove parts before it can be deleted");
+                deletionError.showAndWait();
+            }
         }
-        else
-        getAllProducts().remove(SP);
-
     }
 
     /**
@@ -235,6 +250,7 @@ public class MainController implements Initializable {
         }
         if(!prod.isEmpty())
             allProductsView.setItems(prod);
+
 
     }
 

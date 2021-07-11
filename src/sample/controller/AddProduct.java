@@ -25,6 +25,7 @@ import static sample.model.Inventory.*;
 public class AddProduct implements Initializable {
 
     public Label ProdErrorMsg;
+    public TextField searchPartProd;
     @FXML
     private TextField productPartID;
     @FXML
@@ -102,7 +103,7 @@ public class AddProduct implements Initializable {
      * @param actionEvent present search results in parts table
      */
     public void getResultsPartHandler(ActionEvent actionEvent){
-        String q = partsTextField.getText();
+        String q = searchPartProd.getText();
         ObservableList<Part> parts=searchByPartName(q);
         if(parts.size()==0){
             try {
@@ -118,11 +119,11 @@ public class AddProduct implements Initializable {
                 noPart.setHeaderText("No Part Found!");
                 noPart.setContentText("Please enter a valid part name or part ID");
                 Optional<ButtonType> result = noPart.showAndWait();
-
             }
         }
         if(!parts.isEmpty())
             allPartsView.setItems(parts);
+            allPartsView.getSelectionModel().selectFirst();
     }
 
     /**
@@ -215,9 +216,16 @@ public class AddProduct implements Initializable {
      * @param actionEvent Removing associated part selected
      */
     public void OnRemoveAssociatedPart(ActionEvent actionEvent) {
-        Part SP = allProductsPartsView.getSelectionModel().getSelectedItem();
-        if(SP == null)
-            return;
-        partsName.remove(SP);
+        Alert removePartAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        removePartAlert.setTitle("Deleting associated Part!");
+        removePartAlert.setHeaderText("Part will be removed!");
+        removePartAlert.setContentText("Are you sure you want to delete this part?");
+        Optional<ButtonType> result = removePartAlert.showAndWait();
+        if(result.get() == ButtonType.OK) {
+            Part SP = allProductsPartsView.getSelectionModel().getSelectedItem();
+            if (SP == null)
+                return;
+            partsName.remove(SP);
+        }
     }
 }

@@ -102,8 +102,6 @@ public class ModifyPart implements Initializable {
     public void onSaveP(ActionEvent actionEvent) throws IOException {
         boolean validSave=true;
         String errorMessage="";
-        System.out.println("Start "+getAllParts().indexOf(partP));
-
         try {
             //get input from screen and validate
            partP.setName(partName.getText());
