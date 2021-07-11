@@ -65,6 +65,7 @@ public class AddProduct implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //Increment part ID
         Inventory.incrementPartId();
         allPartsView.setItems(getAllParts());
         partIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -76,6 +77,11 @@ public class AddProduct implements Initializable {
         prodPartInventory.setCellValueFactory(new PropertyValueFactory<>("stock"));
         prodPartPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
+
+    /**
+     * @param pID search part by ID
+     * @return return matching part with ID or message no part found
+     */
     private Part getPartByID(int pID){
         ObservableList<Part> allParts = Inventory.getAllParts();
 
@@ -91,6 +97,10 @@ public class AddProduct implements Initializable {
         Optional<ButtonType> result = noProduct.showAndWait();
         return null;
     }
+
+    /**
+     * @param actionEvent present search results in parts table
+     */
     public void getResultsPartHandler(ActionEvent actionEvent){
         String q = partsTextField.getText();
         ObservableList<Part> parts=searchByPartName(q);
@@ -113,12 +123,15 @@ public class AddProduct implements Initializable {
         }
         if(!parts.isEmpty())
             allPartsView.setItems(parts);
-
     }
+
+    /**
+     * @param partialName search parts by name
+     * @return return part with matching name
+     */
     private ObservableList<Part>searchByPartName(String partialName){
         ObservableList<Part> partsName = FXCollections.observableArrayList();
         ObservableList<Part> allParts = Inventory.getAllParts();
-
         for(Part p:allParts){
             if ((p.getName()).toLowerCase().contains((partialName).toLowerCase())){
                 partsName.add(p);
@@ -126,6 +139,11 @@ public class AddProduct implements Initializable {
         }
         return partsName;
     }
+
+    /**
+     * @param actionEvent go back to main screen
+     * @throws IOException  trhows error if it can find main FXML
+     */
     public void backToMain(ActionEvent actionEvent) throws IOException {
         Parent partCancel = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));
         Scene scene = new Scene(partCancel);
@@ -133,12 +151,20 @@ public class AddProduct implements Initializable {
         window.setScene(scene);
         window.show();
     }
+
+    /**
+     * @param actionEvent add part to product
+     */
     public void onClickProdPartAdd(ActionEvent actionEvent) {
         Part p = allPartsView.getSelectionModel().getSelectedItem();
         partsName.add(p);
         allProductsPartsView.setItems(partsName);
     }
 
+    /**
+     * @param actionEvent Saving Product
+     * @throws IOException throw error if input is invalid
+     */
     public void onSaveProduct(ActionEvent actionEvent) throws IOException {
         System.out.println("STILL BROKEN LOGIC>>> NEED TO FIX");
         String ProdErrorMessage="";
@@ -184,6 +210,10 @@ public class AddProduct implements Initializable {
             window.show();
         }
     }
+
+    /**
+     * @param actionEvent Removing associated part selected
+     */
     public void OnRemoveAssociatedPart(ActionEvent actionEvent) {
         Part SP = allProductsPartsView.getSelectionModel().getSelectedItem();
         if(SP == null)

@@ -87,7 +87,7 @@
                               <Insets />
                            </HBox.margin>
                         </Button>
-                        <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onModify" text="Modify">
+                        <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onModifyPart" text="Modify">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>

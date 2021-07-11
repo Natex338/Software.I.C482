@@ -54,8 +54,11 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<Product, Integer>  prodPrice;
 
+    //public object passed to diffrent screens
     public static Part partP = null;
     public static Product  productP=null;
+
+    //part object to check validation
     private Part partCheck = null;
 
 
@@ -75,35 +78,70 @@ public class MainController implements Initializable {
         prodPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
 
     }
+
+    /**
+     * @return passes part to modify part screen.
+     */
     public static Part partPass(){
         return partP;
     }
+
+    /**
+     * @return passes product object to modify product screen.
+     */
     public static Product prodPass(){
         return productP;
     }
+
+    /**
+     * @param actionEvent removes parts from parts list
+     */
     public void onRemovePart(ActionEvent actionEvent) {
-
-            Alert removePartAlert = new Alert(Alert.AlertType.CONFIRMATION);
-            removePartAlert.setTitle("Deleting Part!");
-            removePartAlert.setHeaderText("Part will be removed!");
-            removePartAlert.setContentText("Are you sure you want to delete this part?");
-            Optional<ButtonType> result = removePartAlert.showAndWait();
-            if (result.get() == ButtonType.OK) {
-                Part SP = allPartsView.getSelectionModel().getSelectedItem();
-                if (SP == null)
-                    return;
+        Alert removePartAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        removePartAlert.setTitle("Deleting Part!");
+        removePartAlert.setHeaderText("Part will be removed!");
+        removePartAlert.setContentText("Are you sure you want to delete this part?");
+        Optional<ButtonType> result = removePartAlert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            Part SP = allPartsView.getSelectionModel().getSelectedItem();
+            if (SP == null)
+                return;
+            if (!deletePart(SP)) {
+                Alert deletionError = new Alert(Alert.AlertType.WARNING);
+                deletionError.setTitle("Deleting Part Er");
+                deletionError.setContentText("Error");
+                deletionError.showAndWait();
+                return;
+            } else {
+                deletePart(SP);
                 getAllParts().remove(SP);
-                Inventory.deletePart(SP);
-
+            }
         }
     }
+
+    /**
+     * @param actionEvent remove products, presents error if associated parts are still attached.
+     */
     public void onRemoveProd(ActionEvent actionEvent) {
         Product SP = allProductsView.getSelectionModel().getSelectedItem();
         if(SP == null)
             return;
+        if(!deleteProduct(SP)){
+            Alert deletionError = new Alert(Alert.AlertType.WARNING);
+            deletionError.setTitle("Deleting Product");
+            deletionError.setContentText("Error");
+            deletionError.showAndWait();
+            return;
+        }
+        else
         getAllProducts().remove(SP);
-        Inventory.deleteProduct(SP);
+
     }
+
+    /**
+     * @param actionEvent open add part screen
+     * @throws IOException  throw errors if it cant find the add part fxml
+     */
     public void onclickAddPart(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/sample/views/AddPart.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
@@ -112,6 +150,10 @@ public class MainController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * @param actionEvent present and handle part search.
+     */
     public void getResultsPartHandler(ActionEvent actionEvent){
         String q = partsTextField.getText();
         ObservableList<Part> parts=searchByPartName(q);
@@ -135,6 +177,11 @@ public class MainController implements Initializable {
         if(!parts.isEmpty())
         allPartsView.setItems(parts);
     }
+
+    /**
+     * @param partialName search for part match with partial name
+     * @return parts that match name search
+     */
     private ObservableList<Part>searchByPartName(String partialName){
         ObservableList<Part> partsName = FXCollections.observableArrayList();
         ObservableList<Part> allParts = Inventory.getAllParts();
@@ -145,6 +192,11 @@ public class MainController implements Initializable {
         }
         return partsName;
     }
+
+    /**
+     * @param pID search part by ID
+     * @return return matching part with ID match or message no part found
+     */
     private Part getPartByID(int pID) {
         Part p = lookupPart(pID);
         if (p == null) {
@@ -157,6 +209,10 @@ public class MainController implements Initializable {
         }
         return p;
     }
+
+    /**
+     * @param actionEvent gather and present product search
+     */
     public void getResultsProdHandler(ActionEvent actionEvent) {
         String q = prodTextField.getText();
         ObservableList<Product> prod=searchByProdName(q);
@@ -181,6 +237,11 @@ public class MainController implements Initializable {
             allProductsView.setItems(prod);
 
     }
+
+    /**
+     * @param pID search products by part ID
+     * @return return products matching part ID
+     */
     private Product getProdByID(int pID){
         Product p = lookupProduct(pID);
         if (p == null) {
@@ -193,6 +254,15 @@ public class MainController implements Initializable {
         }
         return p;
     }
+
+    /**FUTURE ENHANCEMENT**
+     *Search all products that have specific associated parts in the product.
+     * Example search brakes on the product screen and show all products with brakes
+     *
+     * current fuction
+     * @param partialName searches prod list for partial name match
+     * @return returns parts found with partial match
+     */
     private ObservableList<Product>searchByProdName(String partialName) {
         ObservableList<Product> prodName = FXCollections.observableArrayList();
         ObservableList<Product> allProd = Inventory.getAllProducts();
@@ -203,6 +273,10 @@ public class MainController implements Initializable {
         }
         return prodName;
     }
+
+    /**
+     * @param actionEvent close program, prompts users to confirm exit.
+     */
     public void onExit(ActionEvent actionEvent) {
         Alert exitAlert= new Alert(Alert.AlertType.CONFIRMATION);
         exitAlert.setTitle("Exiting Program");
@@ -212,7 +286,12 @@ public class MainController implements Initializable {
         if(result.get()==ButtonType.OK)
             System.exit(0);
     }
-    public void onModify(ActionEvent actionEvent) throws IOException {
+
+    /**
+     * @param actionEvent navigate to modify part screen with selected part
+     * @throws IOException throws error if it cant find the Fxml
+     */
+    public void onModifyPart(ActionEvent actionEvent) throws IOException {
         if (allPartsView.getSelectionModel().isEmpty()) {
         Alert nothingSelected = new Alert(Alert.AlertType.WARNING);
         nothingSelected.setTitle("Nothing Selected");
@@ -229,6 +308,11 @@ public class MainController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * @param actionEvent navigate to add new product screen
+     * @throws IOException throws error if i cant find the Fxml file
+     */
     public void onClickAddProd(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/sample/views/AddProduct.fxml")));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
@@ -237,6 +321,13 @@ public class MainController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**RUNTIME ERROR**
+     * If nothing is selected how do modify the part?
+     * I overcame this by checking if anything is selected, if its not it prompts user to make selection
+     * @param actionEvent modify select part
+     * @throws IOException if it cant find the fxml throws error.
+     */
     public void onModifyProduct(ActionEvent actionEvent) throws IOException {
 
         if (allProductsView.getSelectionModel().isEmpty()) {

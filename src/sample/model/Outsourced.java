@@ -18,26 +18,20 @@ public class Outsourced extends Part {
      * @param min min int
      * @param max max int
      */
-
     public Outsourced(int id,String name,double price,int stock, int min, int max, String companyName) {
         super(id,name, price, stock,min, max);
         this.companyName = companyName;
     }
-
-
-
-
-
-
     /**
      * Getters and Setters
      * @param companyName set and retrieve private company name
      */
-
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
-
+    /**
+     * @return company name
+     */
     public String getCompanyName() {
         return companyName;
     }

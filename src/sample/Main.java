@@ -21,8 +21,8 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-
     public static void main(String[] args) {
+        //populate test products and parts
         Product testProduct1 = new Product(11, "Test ProductOne", 5.99, 1, 1, 1);
         Outsourced testerInHouse1 = new Outsourced(12, "Test Outsourced PartOne", 1, 1, 1, 1, "TestOutsourced2");
         Product testProduct2 = new Product(13, "Test ProductTWO", 2, 2, 1, 5);
@@ -31,7 +31,6 @@ public class Main extends Application {
         Outsourced testerInHouse3 = new Outsourced(213, "Test Outsourced PartThree", 5.99, 5, 1, 5, "TestOutsourced2");
         Product testProduct4 = new Product(41, "Test ProductFour", 5.99, 5, 1, 5);
         InHouse testerInHouse4 = new InHouse(44, "Test In House PartFour", 5.99, 5, 1, 5, 5);
-
         Inventory.addProduct(testProduct1);
         Inventory.addPart(testerInHouse1);
         Inventory.addProduct(testProduct2);
@@ -42,11 +41,5 @@ public class Main extends Application {
         Inventory.addPart(testerInHouse4);
 
         launch(args);
-
-
-
-
-
-
     }
 }

@@ -6,7 +6,6 @@ public class InHouse extends Part {
      * private variables
      */
     private int machineID;
-
     /**
      * Default constructors
      * @param id Part ID
@@ -20,7 +19,6 @@ public class InHouse extends Part {
         super(id, name, price, stock, min, max);
         this.machineID = machineID;
     }
-
     /**
      * Setters
      * @param machineID set Machine ID
@@ -28,7 +26,6 @@ public class InHouse extends Part {
         public void setMachineID(int machineID) {
         this.machineID = machineID;
     }
-
     /**
      * getters
      * @return returns Machine ID

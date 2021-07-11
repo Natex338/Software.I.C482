@@ -41,6 +41,11 @@ public class AddPart implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Inventory.incrementPartId();
     }
+
+    /**
+     * @param actionEvent go back to main screen
+     * @throws IOException throw error if cant find fmxl
+     */
     public void toMain(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/sample/views/Main.fxml")));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -49,12 +54,25 @@ public class AddPart implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * @param actionEvent set text field to Machine ID if Inhouse is selected.
+     */
     public void onInHouse(ActionEvent actionEvent) {
         machineCompany.setText("Machine ID");
     }
+
+    /**
+     * @param actionEvent set text field to company name if outsourced is selected.
+     */
     public void onOutsourced(ActionEvent actionEvent) {
         machineCompany.setText("Company Name");
     }
+
+    /**
+     * @param actionEvent save part
+     * @throws IOException throw error if entery is invalid
+     */
     public void onSaveP(ActionEvent actionEvent) throws IOException {
         String errorMessage = "";
         boolean validSave = true;

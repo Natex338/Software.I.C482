@@ -6,9 +6,14 @@ import javafx.collections.ObservableList;
 
 
 public class Inventory {
+    //Part count is a static variable to increment everytime a part or product is added
     public static int partIdCount=0;
+
+    //Observable lists for holding both Parts and products
     private static final ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static final ObservableList<Product> allProducts = FXCollections.observableArrayList();
+
+
     /**
      * Part count increments every part on add call..
      */
@@ -43,7 +48,15 @@ public class Inventory {
     }
       return null;
   }
-
+    /**
+     * Validate Part or Prodcut values
+     * @param name Name of the product or part cannot be null
+     * @param price price must be higher than zero
+     * @param stock stock cannot be higher than Max, and no lower than min
+     * @param min must be lower than max and lower than stock
+     * @param max must be higher than stock and min
+     * @return returns the error messages for values that are not correct.
+     */
     public static String validatePart( String name, double price, int stock, int min, int max) {
         String message = "";
         if(name.isEmpty()){
@@ -69,7 +82,10 @@ public class Inventory {
 
     return message;
     }
-
+    /** look up product by name
+     * @param productName product name being searched
+     * @return return the product with the same name else null
+     */
     public static Product lookupProduct(String productName){
         for(Product p : allProducts)
         {
@@ -78,6 +94,11 @@ public class Inventory {
         }
       return null;
   }
+    /**
+     * Look up part by ID
+     * @param partId  Part ID being searched
+     * @return  return Part if ID matches else return null
+     */
     public static Part lookupPart(int partId){
       for(Part p : allParts){
           if(p.getId() == partId)
@@ -85,6 +106,10 @@ public class Inventory {
       }
       return null;
   }
+    /**
+     * @param partName look up specific part by name
+     * @return return part with the same name
+     */
     public static Part lookupPart(String partName){
       for(Part p : allParts){
             if(p.getName().contains(partName))
@@ -93,22 +118,37 @@ public class Inventory {
       return null;
 
   }
+    /**
+     * @param index of the part that will be updated
+     * @param selectedPart the part that will be updated.
+     */
     public static void updatePart(int index, Part selectedPart){
       allParts.set(index, selectedPart);
   }
+    /**
+     * @param index index of part that needs to be update
+     * @param selectedProd update part at index in all products array.
+     */
     public static void updateProduct(int index, Product selectedProd){
      allProducts.set(index, selectedProd);
   }
+    /**
+     * @param deletedPart delete selected part
+     * @return return true if part is deleted false if not
+     */
     public static boolean deletePart(Part deletedPart){
       for(Part p : allParts ){
           if (deletedPart == p){
               allParts.remove(p);
               return true;
-
           }
       }
       return false;
   }
+    /**
+     * @param deletedProd deleted product selected
+     * @return true or false depending on deletion
+     */
     public static boolean deleteProduct(Product deletedProd){
         for(Product p : allProducts ){
             if (deletedProd == p){
@@ -118,14 +158,19 @@ public class Inventory {
         }
         return false;
     }
+    /**
+     * @return All parts from the all parts Observable list
+     */
     public static ObservableList<Part> getAllParts(){
         return allParts;
     }
+    /**
+     * get all products form the the Observable list
+     * @return all products in product list
+     */
     public static ObservableList<Product> getAllProducts(){
         return allProducts;
     }
-
-
 }
 
 

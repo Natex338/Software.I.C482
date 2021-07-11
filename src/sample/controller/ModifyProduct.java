@@ -57,18 +57,27 @@ public class ModifyProduct implements Initializable {
     @FXML
     private TableColumn<Part,Integer> partPrice;
     @FXML
-    public TableColumn<Part,Integer> prodPartId;
+    private TableColumn<Part,Integer> prodPartId;
     public TableColumn prodPartName;
-    public TableColumn <Part,Integer>prodPartInventory;
-    public TableColumn<Part,Integer> prodPartPrice;
-    public TableColumn<Part,Integer> partsTextField;
+    @FXML
+    private TableColumn <Part,Integer>prodPartInventory;
+    @FXML
+    private TableColumn<Part,Integer> prodPartPrice;
+    @FXML
+    private TableColumn<Part,Integer> partsTextField;
+    @FXML
     private final ObservableList<Part> partsName = FXCollections.observableArrayList();
+
+
+    //private string to hold error messages from valid check
     private String ProdErrorMessage = "";
+    // passing object from main screen to prod screen
     public static Product prodPass;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+       //Populate both products and parts fields
         prodPass=MainController.prodPass();
         allPartsView.setItems(getAllParts());
         allProductsPartsView.setItems(prodPass.getAllAssociatedParts());
@@ -79,8 +88,6 @@ public class ModifyProduct implements Initializable {
         prodMaxField.setText(String.valueOf(prodPass.getMax()));
         prodMinField.setText(String.valueOf(prodPass.getMin()));
 
-
-
         partIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         partNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         partInventory.setCellValueFactory(new PropertyValueFactory<>("stock"));
@@ -90,6 +97,11 @@ public class ModifyProduct implements Initializable {
         prodPartInventory.setCellValueFactory(new PropertyValueFactory<>("stock"));
         prodPartPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
+
+    /**
+     * @param pID lookup part by ID
+     * @return return part with matching ID
+     */
     private Part getPartByID(int pID){
         ObservableList<Part> allParts = Inventory.getAllParts();
         for (Part p:allParts){
@@ -104,6 +116,10 @@ public class ModifyProduct implements Initializable {
         Optional<ButtonType> result = noProduct.showAndWait();
         return null;
     }
+
+    /**
+     * @param actionEvent search for parts handler
+     */
     public void getResultsPartHandler(ActionEvent actionEvent){
         String q = partsTextField.getText();
         ObservableList<Part> parts=searchByPartName(q);
@@ -128,6 +144,11 @@ public class ModifyProduct implements Initializable {
             allPartsView.setItems(parts);
 
     }
+
+    /**
+     * @param partialName search for parts with partial name
+     * @return return all mactching parts or error with no part found.
+     */
     private ObservableList<Part>searchByPartName(String partialName) {
         ObservableList<Part> partsName = FXCollections.observableArrayList();
         ObservableList<Part> allParts = Inventory.getAllParts();
@@ -138,6 +159,11 @@ public class ModifyProduct implements Initializable {
         }
         return partsName;
     }
+
+    /**
+     * @param actionEvent go back to main page
+     * @throws IOException handles missing fxml
+     */
     public void backToMain(ActionEvent actionEvent) throws IOException {
         Parent partCancel = FXMLLoader.load(getClass().getResource("/sample/views/Main.fxml"));
         Scene scene = new Scene(partCancel);
@@ -145,12 +171,21 @@ public class ModifyProduct implements Initializable {
         window.setScene(scene);
         window.show();
     }
+
+    /**
+     * @param actionEvent add part selected to product
+     */
     public void onClickProdPartAdd(ActionEvent actionEvent) {
         Part p = allPartsView.getSelectionModel().getSelectedItem();
         if(p!=null)
         prodPass.addAssociatedPart(p);
         allProductsPartsView.setItems(prodPass.getAllAssociatedParts());
     }
+
+    /**
+     * @param actionEvent save product and associated parts
+     * @throws IOException hanles invalid input like not a number invalid entry
+     */
     public void onSaveProduct(ActionEvent actionEvent) throws IOException {
         System.out.println("STILL BROKEN LOGIC>>> NEED TO FIX");
         String ProdErrorMessage="";
@@ -183,6 +218,10 @@ public class ModifyProduct implements Initializable {
             window.show();
         }
     }
+
+    /**
+     * @param actionEvent remove associated part from product
+     */
     public void OnRemoveAssociatedPart(ActionEvent actionEvent) {
         Part SP = allProductsPartsView.getSelectionModel().getSelectedItem();
         if(SP == null)

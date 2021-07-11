@@ -68,6 +68,10 @@ public class ModifyPart implements Initializable {
         }
 
     }
+    /**
+     * @param actionEvent go back to main screen
+     * @throws IOException if it cant find fxml throw error
+     */
     public void backToMain(ActionEvent actionEvent) throws IOException {
 
         Parent partCancel = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/sample/views/Main.fxml")));
@@ -76,43 +80,58 @@ public class ModifyPart implements Initializable {
         window.setScene(scene);
         window.show();
     }
+
+    /**
+     * @param actionEvent change to Machine ID if Inhouse is selected.
+     */
     public void onInHouse(ActionEvent actionEvent) {
         machineCompany.setText("Machine ID");
-
     }
+
+    /**
+     * @param actionEvent change field to company name if outsourced is selected
+     */
     public void onOutsourced(ActionEvent actionEvent) {
-        machineCompany.setText("Company ID");
-
+        machineCompany.setText("Company Name");
     }
 
+    /**
+     * @param actionEvent save parts
+     * @throws IOException throws errors if entry isn't valid
+     */
     public void onSaveP(ActionEvent actionEvent) throws IOException {
         boolean validSave=true;
         String errorMessage="";
         System.out.println("Start "+getAllParts().indexOf(partP));
 
         try {
-
+            //get input from screen and validate
            partP.setName(partName.getText());
            partP.setMin(Integer.parseInt(partMin.getText()));
            partP.setMax(Integer.parseInt(partMax.getText()));
            partP.setPrice(Double.parseDouble(partPrice.getText()));
            partP.setStock(Integer.parseInt(partInv.getText()));
            errorMessage = Inventory.validatePart(partP.getName(), partP.getPrice(),partP.getStock(), partP.getMin(),partP.getMax());
+           //check if part entry is valid
            if (!errorMessage.isEmpty()){
                validSave=false;
            }
            else if (partOutsourced.isSelected())
            {
+               //if valid set part params for Outsourced part
                Outsourced part = new Outsourced(partP.getId(), partP.getName(), partP.getPrice(), partP.getStock(), partP.getMin(), partP.getMax(), machineIDCompName.getText());
                Inventory.updatePart(getAllParts().indexOf(partP),part);
            }
            else if (inHousePart.isSelected())
            {
+               //if valid set part params for Inhouse part
                InHouse part = new InHouse(partP.getId(), partP.getName(), partP.getPrice(), partP.getStock(), partP.getMin(), partP.getMax(), Integer.parseInt(machineIDCompName.getText()));
                Inventory.updatePart(getAllParts().indexOf(partP),part);
            }
+           //display error message on screen
             errorMessages.setText(errorMessage);
         }
+        //catch any errors and display on screen
         catch (Exception e){
             validSave =false;
             errorMessage+="ERROR: Please correct\n"+e.getMessage().toLowerCase() +"\n to a valid entry for the field.";
