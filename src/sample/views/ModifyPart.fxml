@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="482.0" prefWidth="617.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.ModifyPart">
+<AnchorPane prefHeight="482.0" prefWidth="617.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.ModifyPart">
     <children>
         <Button layoutX="534.0" layoutY="361.0" mnemonicParsing="false" onAction="#backToMain" text="Cancel" />
         <Button fx:id="saveP" layoutX="479.0" layoutY="361.0" mnemonicParsing="false" onAction="#onSaveP" text="Save" />

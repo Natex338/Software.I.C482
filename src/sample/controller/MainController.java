@@ -115,6 +115,7 @@ public class MainController implements Initializable {
             } else {
                 deletePart(SP);
                 getAllParts().remove(SP);
+                allPartsView.setItems(getAllParts());
             }
         }
     }
@@ -142,7 +143,8 @@ public class MainController implements Initializable {
                     }
                 else
                     getAllProducts().remove(SP);
-            }
+                    allProductsView.setItems(getAllProducts());
+                }
             else {
                 Alert deletionError = new Alert(Alert.AlertType.WARNING);
                 deletionError.setTitle("Cannot Delete Product");
@@ -354,7 +356,6 @@ public class MainController implements Initializable {
             nothingSelected.showAndWait();
             return;
         }
-        System.out.println(allProductsView.getSelectionModel().getSelectedItem().getName());
         productP = allProductsView.getSelectionModel().getSelectedItem();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/sample/views/ModifyProduct.fxml")));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
