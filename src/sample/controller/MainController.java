@@ -193,24 +193,15 @@ public class MainController implements Initializable {
         }
         return p;
     }
-    private ObservableList<Product>searchByProdName(String partialName){
+    private ObservableList<Product>searchByProdName(String partialName) {
         ObservableList<Product> prodName = FXCollections.observableArrayList();
-        int i=0;
-        while(i<allProductsView.getItems().size()){
-            if (lookupProduct(partialName))
-
-        i++;
-        }
-        return prodName;
-    /*
         ObservableList<Product> allProd = Inventory.getAllProducts();
-        for(Product p:allProd){
-            if ((p.getName()).toLowerCase().contains((partialName).toLowerCase())){
+        for (Product p : allProd) {
+            if ((p.getName()).toLowerCase().contains((partialName).toLowerCase())) {
                 prodName.add(p);
             }
         }
-
-     */
+        return prodName;
     }
     public void onExit(ActionEvent actionEvent) {
         Alert exitAlert= new Alert(Alert.AlertType.CONFIRMATION);
