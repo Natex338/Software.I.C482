@@ -26,6 +26,7 @@ public class AddProduct implements Initializable {
 
     public Label ProdErrorMsg;
     public TextField searchPartProd;
+    public TextField prodMinField;
     @FXML
     private TextField productPartID;
     @FXML
@@ -167,13 +168,12 @@ public class AddProduct implements Initializable {
      * @throws IOException throw error if input is invalid
      */
     public void onSaveProduct(ActionEvent actionEvent) throws IOException {
-        System.out.println("STILL BROKEN LOGIC>>> NEED TO FIX");
         String ProdErrorMessage="";
         boolean validSave = true;
 
         try {
             String prodName = productPartName.getText();
-            int prodMin = Integer.parseInt(prodInvField.getText());
+            int prodMin = Integer.parseInt(prodMinField.getText());
             int prodID = Inventory.partIdCount;
             int prodInv = Integer.parseInt(prodInvField.getText());
             int prodMax = Integer.parseInt(prodMaxField.getText());

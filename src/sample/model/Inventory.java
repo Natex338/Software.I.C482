@@ -53,7 +53,7 @@ public class Inventory {
   }
 
     /**
-     * Validate Part or Prodcut values
+     * Validate Part or Product values
      * @param name Name of the product or part cannot be null
      * @param price price must be higher than zero
      * @param stock stock cannot be higher than Max, and no lower than min
