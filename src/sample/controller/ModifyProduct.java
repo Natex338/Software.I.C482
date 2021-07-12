@@ -184,12 +184,18 @@ public class ModifyProduct implements Initializable {
         String ProdErrorMessage="";
         boolean validSave = true;
         try {
-            ProdErrorMessage += Inventory.validatePart(productPartNameField.getText(), Double.parseDouble(prodPriceField.getText()), Integer.parseInt(prodInvField.getText()), Integer.parseInt(prodInvField.getText()), Integer.parseInt(prodMaxField.getText()));
+            ProdErrorMessage += Inventory.validatePart(productPartNameField.getText(), Double.parseDouble(prodPriceField.getText()), Integer.parseInt(prodInvField.getText()), Integer.parseInt(prodMinField.getText()), Integer.parseInt(prodMaxField.getText()));
             if (!ProdErrorMessage.isEmpty()) {
                 validSave = false;
                 ProdErrorMsg.setText(ProdErrorMessage+"\n");
             }
             else {
+                prodPass.setName(productPartNameField.getText());
+                prodPass.setStock(Integer.parseInt(prodInvField.getText()));
+                prodPass.setPrice(Double.parseDouble(prodPriceField.getText()));
+                prodPass.setMax(Integer.parseInt(prodMaxField.getText()));
+                prodPass.setMin(Integer.parseInt(prodMinField.getText()));
+
                 Inventory.updateProduct(getAllProducts().indexOf(prodPass),prodPass);
             }
 

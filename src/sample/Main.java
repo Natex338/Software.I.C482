@@ -12,6 +12,10 @@ import sample.model.Product;
 
 public class Main extends Application {
 
+    /**
+     * @param primaryStage set the primary stage
+     * @throws Exception    throw error if not found.
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("views/Main.fxml"));
@@ -21,6 +25,10 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    /**
+     * @author Nathan Edwards Software I Project
+     * @param args Main generate test data
+     */
     public static void main(String[] args) {
         //populate test products and parts
         Product testProduct1 = new Product(11, "Test ProductOne", 5.99, 1, 1, 1);
