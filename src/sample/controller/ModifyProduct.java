@@ -74,7 +74,6 @@ public class ModifyProduct implements Initializable {
         prodPass=MainController.prodPass();
         allPartsView.setItems(getAllParts());
         allProductsPartsView.setItems(prodPass.getAllAssociatedParts());
-        allProductsPartsView.setItems(prodPass.getAllAssociatedParts());
         productPartNameField.setText(prodPass.getName());
         prodPriceField.setText(String.valueOf(prodPass.getPrice()));
         prodInvField.setText(String.valueOf(prodPass.getStock()));
@@ -184,13 +183,20 @@ public class ModifyProduct implements Initializable {
         String ProdErrorMessage="";
         boolean validSave = true;
         try {
-            ProdErrorMessage += Inventory.validatePart(productPartNameField.getText(), Double.parseDouble(prodPriceField.getText()), Integer.parseInt(prodInvField.getText()), Integer.parseInt(prodInvField.getText()), Integer.parseInt(prodMaxField.getText()));
+            ProdErrorMessage += Inventory.validatePart(productPartNameField.getText(),Double.parseDouble(prodPriceField.getText()),Integer.parseInt(prodInvField.getText()), Integer.parseInt(prodMinField.getText()), Integer.parseInt(prodMaxField.getText()));
             if (!ProdErrorMessage.isEmpty()) {
                 validSave = false;
                 ProdErrorMsg.setText(ProdErrorMessage+"\n");
             }
             else {
+                prodPass.setName(productPartNameField.getText());
+                prodPass.setMax(Integer.parseInt(prodMaxField.getText()));
+                prodPass.setMin(Integer.parseInt(prodMinField.getText()));
+                prodPass.setPrice(Double.parseDouble(prodPriceField.getText()));
+                prodPass.setStock(Integer.parseInt(prodInvField.getText()));
                 Inventory.updateProduct(getAllProducts().indexOf(prodPass),prodPass);
+
+
             }
 
         }
